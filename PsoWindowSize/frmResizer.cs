@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using EasyHook;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,10 +12,12 @@ using System.Media;
 using System.Reflection;
 //using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting;
 using System.Text;
 using System.Threading;
 //using System.Threading.Tasks;
 using System.Windows.Forms;
+using Yggdrasill;
 
 namespace PsoWindowSize
 {
@@ -252,6 +255,7 @@ namespace PsoWindowSize
             ScreenHeight = Screen.PrimaryScreen.Bounds.Height;
 
             chkAutoResize.Checked = true;
+            chkWindowed.Checked = true;
             cmdResize.Enabled = false;
             cmdScreenshot.Enabled = false;
             cboRatio.SelectedIndex = 0;
@@ -477,6 +481,151 @@ namespace PsoWindowSize
             }
 
             timer.Start();
+        }
+
+        public struct ThdArgs
+        {
+            public Process psoProc;
+            public RegistryKey key;
+            public UInt32 value;
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            /* Don't try to start the game twice... */
+            bool windowed = chkWindowed.Checked;
+
+            uint value = (uint)0x00000010;
+
+            /* Figure out the working directory to set and set the flag in the registry... */
+            RegistryKey k = Registry.CurrentUser.OpenSubKey(@"Software\SonicTeam\PSOV2", true);
+            k.SetValue("CTRLFLAG1", value, RegistryValueKind.DWord);
+#if !DEBUG
+            string dir = Application.StartupPath;
+            ProcessStartInfo psoProcessInfo = new ProcessStartInfo(Application.StartupPath + "\\pso.exe", "-online");
+#else
+            string dir = @"C:\Jogos\Phantasy Star Online";
+            ProcessStartInfo psoProcessInfo = new ProcessStartInfo(@"C:\Jogos\Phantasy Star Online\pso.exe", "-online");
+#endif
+            Kernel32.STARTUPINFO si = new Kernel32.STARTUPINFO();
+            Kernel32.PROCESS_INFORMATION pi = new Kernel32.PROCESS_INFORMATION();
+
+            Directory.SetCurrentDirectory(dir);
+
+            /* Get the icon from one of the exes that have an icon */
+            System.Drawing.Icon icon = System.Drawing.Icon.ExtractAssociatedIcon("online.exe");
+
+            /* Start PSO... */
+            bool ran = Kernel32.CreateProcess(null, "pso.exe -online",
+                IntPtr.Zero, IntPtr.Zero, true,
+                (uint)Kernel32.ProcessCreationFlags.CREATE_SUSPENDED,
+                IntPtr.Zero, dir, ref si, out pi);
+
+            if (!ran)
+            {
+                Console.Out.WriteLine("CANNOT START PSO!");
+                //k.SetValue("CTRLFLAG1", value, RegistryValueKind.DWord);
+                return;
+            }
+            
+            Process psoProc = Process.GetProcessById((int)pi.dwProcessId);
+
+            string ChannelName = null;
+            RemoteHooking.IpcCreateServer<YggdrasillInterface>(ref ChannelName, WellKnownObjectMode.SingleCall);
+
+            try
+            {
+                RemoteHooking.Inject((int)pi.dwProcessId, Path.Combine(Application.StartupPath, "Mithos.dll"), null, ChannelName,
+                chkVista.Checked, windowed);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                psoProc.Kill();
+                return;
+            }
+
+            /* Set up for doing the stuff we need to to the binary... */
+            ProcessHaxxor haxxor = new ProcessHaxxor(psoProc);
+
+            Kernel32.ResumeThread(pi.hThread);
+
+            Thread.Sleep(1000);
+
+            /* Pause it while we hax it up. */
+            foreach (ProcessThread pT in psoProc.Threads)
+            {
+                IntPtr pOpenThread = Kernel32.OpenThread(Kernel32.ThreadAccess.SUSPEND_RESUME, false, (uint)pT.Id);
+
+                if (pOpenThread == IntPtr.Zero)
+                {
+                    break;
+                }
+
+                Kernel32.SuspendThread(pOpenThread);
+            }
+
+            haxxor.PatchPSO(chkWhiteNames.Checked,
+                            chkWordFilter.Enabled,
+                            chkMusicFix.Enabled,
+                            chkMapFix.Enabled);
+
+            /* Wake it up. */
+            foreach (ProcessThread pT in psoProc.Threads)
+            {
+                IntPtr pOpenThread = Kernel32.OpenThread(Kernel32.ThreadAccess.SUSPEND_RESUME, false, (uint)pT.Id);
+
+                if (pOpenThread == IntPtr.Zero)
+                {
+                    break;
+                }
+
+                Kernel32.ResumeThread(pOpenThread);
+            }
+
+            if (windowed)
+            {
+                RECT windowRect = new RECT();
+                RECT clientRect = new RECT();
+
+                int windowHeight = 0;
+                int windowWidth = 0;
+                int clientHeight = 0;
+                int clientWidth = 0;
+
+                Thread.Sleep(750);
+                IntPtr wnd = User32.FindWindow("PSO for PC", "PSO for PC");
+
+                WinAPI.GetWindowRect(wnd, ref windowRect);
+                windowHeight = windowRect.Bottom - windowRect.Top;
+                windowWidth = windowRect.Right - windowRect.Left;
+
+                WinAPI.GetClientRect(wnd, ref clientRect);
+                clientHeight = clientRect.Bottom - clientRect.Top;
+                clientWidth = clientRect.Right - clientRect.Left;
+
+                if (rdoPerfect.Checked)
+                {
+                    User32.SetWindowPos(wnd, IntPtr.Zero, 0, 0, (int)((640 * (cboRatio.SelectedIndex + 1)) + (windowWidth - clientWidth)),
+                                                                (int)((480 * (cboRatio.SelectedIndex + 1)) + (windowHeight - clientHeight)), 2);
+                }
+                else
+                {
+                    User32.SetWindowPos(wnd, IntPtr.Zero, 0, 0, (int)((int)txtW.Value + (windowWidth - clientWidth)),
+                                                                (int)((int)txtH.Value + (windowHeight - clientHeight)), 2);
+                }
+                
+                User32.SendMessage(wnd, User32.WM_SETICON, User32.ICON_BIG, icon.Handle);
+            }
+
+            /* Make a thread to wait until the game exits to clean up. */
+            //ThdArgs args = new ThdArgs();
+            //args.psoProc = psoProc;
+            //args.key = k;
+            //args.value = value;
+            //Thread thd = new Thread(this.WaitThd);
+            //thd.Start(args);
+
         }
     }
 }
