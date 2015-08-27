@@ -4,32 +4,32 @@ This README documents whatever steps are necessary to get your application up an
 
 ### What is this repository for? ###
 
-* Quick summary
+* Quick summary:
 PsoLauncher is a launcher that allows precise resizing of the game window, as well as patching functionality.
-* Version
+* Version:
 1.2
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
 ### How do I get set up? ###
 
-* Summary of set up
+* Summary of set up:
 This was coded with Visual Studio 2013, therefore it is recommended to open this code.
 
-* Configuration
+* Configuration:
 Nothing specific is needed.
 
-* Dependencies
+* Dependencies:
 Mithos.dll by Lawrence Sebald. 
 
 ### Contribution guidelines ###
 
 * Writing tests
 * Code review
-* Other guidelines
+* Other guidelines:
 For any kind of contribution, contact me. I can be found at the message board of http://dcemulation.org/
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+* Repo owner or admin:
+* Other community or team contact:
 Same as the previous. :)
