@@ -140,6 +140,9 @@
     <Content Include="EasyHook32.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Yggdrasill\EasyHook.dll" />
   </ItemGroup>
   <ItemGroup>
