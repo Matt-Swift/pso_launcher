@@ -187,7 +187,7 @@ namespace Yggdrasill
             byte[] data;
             int bytesRead;
 
-            while (start + 10000 > DateTime.Now.Ticks && !done)
+            while ((start + 100000 > DateTime.Now.Ticks) && !done)
             {
                 foreach (IMAGE_SECTION_HEADER sec in hdr.Sections)
                 {

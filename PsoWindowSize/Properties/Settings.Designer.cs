@@ -22,5 +22,197 @@ namespace PsoWindowSize.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool KeyboardFix {
+            get {
+                return ((bool)(this["KeyboardFix"]));
+            }
+            set {
+                this["KeyboardFix"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoResize {
+            get {
+                return ((bool)(this["AutoResize"]));
+            }
+            set {
+                this["AutoResize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Online {
+            get {
+                return ((bool)(this["Online"]));
+            }
+            set {
+                this["Online"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Offline {
+            get {
+                return ((bool)(this["Offline"]));
+            }
+            set {
+                this["Offline"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool NameFix {
+            get {
+                return ((bool)(this["NameFix"]));
+            }
+            set {
+                this["NameFix"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MusicFix {
+            get {
+                return ((bool)(this["MusicFix"]));
+            }
+            set {
+                this["MusicFix"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MapFix {
+            get {
+                return ((bool)(this["MapFix"]));
+            }
+            set {
+                this["MapFix"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool WordFilter {
+            get {
+                return ((bool)(this["WordFilter"]));
+            }
+            set {
+                this["WordFilter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Windowed {
+            get {
+                return ((bool)(this["Windowed"]));
+            }
+            set {
+                this["Windowed"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PixelPerfectRez {
+            get {
+                return ((bool)(this["PixelPerfectRez"]));
+            }
+            set {
+                this["PixelPerfectRez"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CustomRez {
+            get {
+                return ((bool)(this["CustomRez"]));
+            }
+            set {
+                this["CustomRez"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1x (640 x 480)")]
+        public string PresetRezText {
+            get {
+                return ((string)(this["PresetRezText"]));
+            }
+            set {
+                this["PresetRezText"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LockRatio {
+            get {
+                return ((bool)(this["LockRatio"]));
+            }
+            set {
+                this["LockRatio"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("800")]
+        public decimal CustomWidth {
+            get {
+                return ((decimal)(this["CustomWidth"]));
+            }
+            set {
+                this["CustomWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("600")]
+        public decimal CustomHeight {
+            get {
+                return ((decimal)(this["CustomHeight"]));
+            }
+            set {
+                this["CustomHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LaunchCentered {
+            get {
+                return ((bool)(this["LaunchCentered"]));
+            }
+            set {
+                this["LaunchCentered"] = value;
+            }
+        }
     }
 }

@@ -1,4 +1,24 @@
-﻿using EasyHook;
+﻿/*
+    This file is part of PsoWindowResize
+    Copyright (C) 2015 Tulio Gonçalves
+
+    This program also contains parts of code that are part of Yggdrasill. 
+    Copyright (C) 2013 Lawrence Sebald
+  
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License version 3 as
+    published by  the Free Software Foundation.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+using EasyHook;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -34,6 +54,8 @@ namespace PsoWindowSize
         bool updatingValue = false;
         bool hasExePath = false;
         string exePath = string.Empty;
+        string psoDir = string.Empty;
+        uint ctrlFlagValue = 0;
 
         int ScreenWidth = 0;
         int ScreenHeight = 0;
@@ -251,16 +273,42 @@ namespace PsoWindowSize
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            try
+            {
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\SonicTeam\PSOV2");
+                psoDir = key.GetValue("Dir").ToString();
+                ctrlFlagValue = Convert.ToUInt32(key.GetValue("CTRLFLAG1"));
+                key.Close();
+            }
+            catch
+            {
+                MessageBox.Show("PSO is not installed properly.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                Application.Exit();
+            }
+
             ScreenWidth = Screen.PrimaryScreen.Bounds.Width;
             ScreenHeight = Screen.PrimaryScreen.Bounds.Height;
 
-            chkAutoResize.Checked = true;
-            chkWindowed.Checked = true;
+            //chkAutoResize.Checked = true;
+            //chkWindowed.Checked = true;
+            //cboRatio.SelectedIndex = 0;
             cmdResize.Enabled = false;
             cmdScreenshot.Enabled = false;
-            cboRatio.SelectedIndex = 0;
             timer.Enabled = true;
+
+            if (!rdoOnline.Checked)
+            {
+                rdoOffline.Checked = true;
+            }
+
+            if (!rdoPerfect.Checked)
+            {
+                rdoCustom.Checked = true;
+            }
+
             UpdateRatio();
+
+            Properties.Settings.Default.Reload();
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -292,6 +340,8 @@ namespace PsoWindowSize
                     cmdStartOffline.Enabled = false;
                     cmdStartOnline.Enabled = false;
                     cmdOptions.Enabled = false;
+                    cmdSerial.Enabled = false;
+                    cmdLaunch.Enabled = false;
 
                     if (chkAutoResize.Checked)
                     {
@@ -318,11 +368,15 @@ namespace PsoWindowSize
                 else
                 {
                     lblPsoStatus.Text = "PSO is NOT running.";
+
                     cmdResize.Enabled = false;
                     cmdScreenshot.Enabled = false;
                     cmdStartOffline.Enabled = true;
                     cmdStartOnline.Enabled = true;
                     cmdOptions.Enabled = true;
+                    cmdSerial.Enabled = true;
+                    cmdLaunch.Enabled = true;
+
                     hasExePath = false;
                 }
             }
@@ -414,13 +468,10 @@ namespace PsoWindowSize
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\SonicTeam\PSOV2", true);
             key.SetValue("CTRLFLAG1", (uint)0x0000001e, RegistryValueKind.DWord);
             key.Close();
-#if !DEBUG
-            Directory.SetCurrentDirectory(Application.StartupPath);
-            ProcessStartInfo psoProcessInfo = new ProcessStartInfo(Application.StartupPath + "\\pso.exe", "-online");
-#else
-            Directory.SetCurrentDirectory(@"C:\Jogos\Phantasy Star Online");
-            ProcessStartInfo psoProcessInfo = new ProcessStartInfo(@"C:\Jogos\Phantasy Star Online\pso.exe", "-online");
-#endif
+
+            Directory.SetCurrentDirectory(psoDir);
+
+            ProcessStartInfo psoProcessInfo = new ProcessStartInfo(psoDir + "\\pso.exe", "-online");
             psoProcessInfo.WindowStyle = ProcessWindowStyle.Normal;
             try
             {
@@ -440,13 +491,9 @@ namespace PsoWindowSize
             key.SetValue("CTRLFLAG1", (uint)0x0000000e, RegistryValueKind.DWord);
             key.Close();
 
-#if !DEBUG
-            Directory.SetCurrentDirectory(Application.StartupPath);
-            ProcessStartInfo psoProcessInfo = new ProcessStartInfo(Application.StartupPath + "\\pso.exe", "-offline");
-#else
-            Directory.SetCurrentDirectory(@"C:\Jogos\Phantasy Star Online");
-            ProcessStartInfo psoProcessInfo = new ProcessStartInfo(@"C:\Jogos\Phantasy Star Online\pso.exe", "-offline");
-#endif
+            Directory.SetCurrentDirectory(psoDir);
+
+            ProcessStartInfo psoProcessInfo = new ProcessStartInfo(psoDir + "\\pso.exe", "-offline");
             psoProcessInfo.WindowStyle = ProcessWindowStyle.Normal;
             try
             {
@@ -462,13 +509,10 @@ namespace PsoWindowSize
         private void cmdOptions_Click(object sender, EventArgs e)
         {
             timer.Stop();
-#if !DEBUG
-            Directory.SetCurrentDirectory(Application.StartupPath);
-            ProcessStartInfo processInfo = new ProcessStartInfo(Application.StartupPath + "\\option.exe", "-autorun.exe -s");
-#else
-            Directory.SetCurrentDirectory(@"C:\Jogos\Phantasy Star Online");
-            ProcessStartInfo processInfo = new ProcessStartInfo(@"C:\Jogos\Phantasy Star Online\option.exe", "-autorun.exe -s");
-#endif
+
+            Directory.SetCurrentDirectory(psoDir);
+
+            ProcessStartInfo processInfo = new ProcessStartInfo(Path.Combine(psoDir, "option.exe"), "-autorun.exe -s");
             processInfo.WindowStyle = ProcessWindowStyle.Normal;
             try
             {
@@ -490,23 +534,29 @@ namespace PsoWindowSize
             public UInt32 value;
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void cmdLaunch_Click(object sender, EventArgs e)
         {
             /* Don't try to start the game twice... */
             bool windowed = chkWindowed.Checked;
 
-            uint value = (uint)0x00000010;
+            uint value = 0;
+            if (rdoOnline.Checked)
+            {
+                value = (uint)(ctrlFlagValue | 0x00000010);
+            }
+            else
+            {
+                value = (uint)(ctrlFlagValue & 0xffffffef);
+            }
+
 
             /* Figure out the working directory to set and set the flag in the registry... */
             RegistryKey k = Registry.CurrentUser.OpenSubKey(@"Software\SonicTeam\PSOV2", true);
             k.SetValue("CTRLFLAG1", value, RegistryValueKind.DWord);
-#if !DEBUG
-            string dir = Application.StartupPath;
-            ProcessStartInfo psoProcessInfo = new ProcessStartInfo(Application.StartupPath + "\\pso.exe", "-online");
-#else
-            string dir = @"C:\Jogos\Phantasy Star Online";
-            ProcessStartInfo psoProcessInfo = new ProcessStartInfo(@"C:\Jogos\Phantasy Star Online\pso.exe", "-online");
-#endif
+            k.Close();
+
+            string dir = psoDir;
+
             Kernel32.STARTUPINFO si = new Kernel32.STARTUPINFO();
             Kernel32.PROCESS_INFORMATION pi = new Kernel32.PROCESS_INFORMATION();
 
@@ -527,7 +577,7 @@ namespace PsoWindowSize
                 //k.SetValue("CTRLFLAG1", value, RegistryValueKind.DWord);
                 return;
             }
-            
+
             Process psoProc = Process.GetProcessById((int)pi.dwProcessId);
 
             string ChannelName = null;
@@ -566,9 +616,9 @@ namespace PsoWindowSize
             }
 
             haxxor.PatchPSO(chkWhiteNames.Checked,
-                            chkWordFilter.Enabled,
-                            chkMusicFix.Enabled,
-                            chkMapFix.Enabled);
+                            chkWordFilter.Checked,
+                            chkMusicFix.Checked,
+                            chkMapFix.Checked);
 
             /* Wake it up. */
             foreach (ProcessThread pT in psoProc.Threads)
@@ -604,28 +654,136 @@ namespace PsoWindowSize
                 clientHeight = clientRect.Bottom - clientRect.Top;
                 clientWidth = clientRect.Right - clientRect.Left;
 
+                int startX = 0;
+                int startY = 0;
+
+                int desiredWidth = 0;
+                int desiredHeight = 0;
+
                 if (rdoPerfect.Checked)
                 {
-                    User32.SetWindowPos(wnd, IntPtr.Zero, 0, 0, (int)((640 * (cboRatio.SelectedIndex + 1)) + (windowWidth - clientWidth)),
-                                                                (int)((480 * (cboRatio.SelectedIndex + 1)) + (windowHeight - clientHeight)), 2);
+                    desiredWidth = (int)((640 * (cboRatio.SelectedIndex + 1)) + (windowWidth - clientWidth));
+                    desiredHeight = (int)((480 * (cboRatio.SelectedIndex + 1)) + (windowHeight - clientHeight));
                 }
                 else
                 {
-                    User32.SetWindowPos(wnd, IntPtr.Zero, 0, 0, (int)((int)txtW.Value + (windowWidth - clientWidth)),
-                                                                (int)((int)txtH.Value + (windowHeight - clientHeight)), 2);
+                    desiredWidth = (int)((int)txtW.Value + (windowWidth - clientWidth));
+                    desiredHeight = (int)((int)txtH.Value + (windowHeight - clientHeight));
                 }
-                
+
+                if (chkCenterWindow.Checked)
+                {
+                    startX = (ScreenWidth - desiredWidth) / 2;
+                    startY = (Screen.PrimaryScreen.WorkingArea.Height - desiredHeight) / 2;
+                }
+
+                User32.SetWindowPos(wnd, IntPtr.Zero, startX, startY, desiredWidth, desiredHeight, 2);
+                WinAPI.MoveWindow(wnd, startX, startY, desiredWidth, desiredHeight, true);
+
                 User32.SendMessage(wnd, User32.WM_SETICON, User32.ICON_BIG, icon.Handle);
             }
 
-            /* Make a thread to wait until the game exits to clean up. */
-            //ThdArgs args = new ThdArgs();
-            //args.psoProc = psoProc;
-            //args.key = k;
-            //args.value = value;
-            //Thread thd = new Thread(this.WaitThd);
-            //thd.Start(args);
+            Properties.Settings.Default.Save();
 
+            /* Make a thread to wait until the game exits to clean up. */
+            ThdArgs args = new ThdArgs();
+            args.psoProc = psoProc;
+            args.key = k;
+            args.value = value;
+            Thread thd = new Thread(this.WaitThd);
+            thd.Start(args);
+
+        }
+
+        private void WaitThd(object thdArgs)
+        {
+            ThdArgs args = (ThdArgs)thdArgs;
+
+            args.psoProc.WaitForExit();
+            args.key = Registry.CurrentUser.OpenSubKey(@"Software\SonicTeam\PSOV2", true);
+            args.key.SetValue("CTRLFLAG1", args.value, RegistryValueKind.DWord);
+            args.key.Close();
+        }
+
+
+        private void cmdSerial_Click(object sender, EventArgs e)
+        {
+            frmSerial serialForm = new frmSerial();
+            serialForm.ShowDialog();
+            serialForm.Dispose();
+        }
+
+        private void frmResizer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            RegistryKey k = Registry.CurrentUser.OpenSubKey(@"Software\SonicTeam\PSOV2", true);
+            k.SetValue("CTRLFLAG1", ctrlFlagValue, RegistryValueKind.DWord);
+            k.Close();
+        }
+
+        private void cmdExit_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+            Application.Exit();
+        }
+
+        private void chkVista_CheckStateChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
+        private void chkWhiteNames_CheckStateChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
+        private void chkMusicFix_CheckStateChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
+        private void chkMapFix_CheckStateChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
+        private void chkWordFilter_CheckStateChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
+        private void chkAutoResize_CheckStateChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
+        private void chkCenterWindow_CheckStateChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
+        private void chkLockRatio_CheckStateChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
+        private void chkWindowed_CheckStateChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
+        private void cboRatio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
+        private void txtW_Leave(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
+        private void txtH_Leave(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
         }
     }
 }
