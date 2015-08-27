@@ -136,6 +136,9 @@ I'm a member of the dcemulation forum, and you can PM me there if you'd like to 
 6. CHANGE HISTORY
 =================
 
+1.2.1
+= Fixed a bug that caused values reloading on the custom box as they were being typed making it impossible to set a desired value.
+
 1.2
 + Added support to patching a clean install of PSO on the fly without need of patched executables. 
 + Added an option to manage the serials from within the program.
@@ -162,8 +165,8 @@ I'm a member of the dcemulation forum, and you can PM me there if you'd like to 
 = Initial release with window resize functionality.
 
 
-SOURCE CODE
-===========
+7. SOURCE CODE
+==============
 
 The source code is available at https://bitbucket.org/tulioadriano/2dpsolauncher under the GNU General Public License. See <http://www.gnu.org/licenses/> for more details.
 

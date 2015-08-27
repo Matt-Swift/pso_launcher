@@ -186,7 +186,6 @@
             // 
             // txtH
             // 
-            this.txtH.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::PsoWindowSize.Properties.Settings.Default, "CustomHeight", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.txtH.Location = new System.Drawing.Point(173, 19);
             this.txtH.Maximum = new decimal(new int[] {
             8192,
@@ -201,9 +200,12 @@
             this.txtH.Name = "txtH";
             this.txtH.Size = new System.Drawing.Size(48, 20);
             this.txtH.TabIndex = 5;
-            this.txtH.Value = global::PsoWindowSize.Properties.Settings.Default.CustomHeight;
+            this.txtH.Value = new decimal(new int[] {
+            600,
+            0,
+            0,
+            0});
             this.txtH.ValueChanged += new System.EventHandler(this.txtH_ValueChanged);
-            this.txtH.Leave += new System.EventHandler(this.txtH_Leave);
             // 
             // label1
             // 
@@ -216,7 +218,6 @@
             // 
             // txtW
             // 
-            this.txtW.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::PsoWindowSize.Properties.Settings.Default, "CustomWidth", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.txtW.Location = new System.Drawing.Point(106, 19);
             this.txtW.Maximum = new decimal(new int[] {
             8192,
@@ -231,9 +232,12 @@
             this.txtW.Name = "txtW";
             this.txtW.Size = new System.Drawing.Size(48, 20);
             this.txtW.TabIndex = 4;
-            this.txtW.Value = global::PsoWindowSize.Properties.Settings.Default.CustomWidth;
+            this.txtW.Value = new decimal(new int[] {
+            800,
+            0,
+            0,
+            0});
             this.txtW.ValueChanged += new System.EventHandler(this.txtW_ValueChanged);
-            this.txtW.Leave += new System.EventHandler(this.txtW_Leave);
             // 
             // rdoPerfect
             // 

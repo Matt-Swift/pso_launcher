@@ -308,7 +308,10 @@ namespace PsoWindowSize
 
             UpdateRatio();
 
-            Properties.Settings.Default.Reload();
+            txtW.Value = Properties.Settings.Default.CustomWidth;
+            txtH.Value = Properties.Settings.Default.CustomHeight;
+            UpdateRatio();
+
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -412,6 +415,9 @@ namespace PsoWindowSize
                 if (chkLockRatio.Checked)
                 {
                     txtH.Value = (int)(txtW.Value * ratio.H / ratio.W);
+                    Properties.Settings.Default.CustomWidth = txtW.Value;
+                    Properties.Settings.Default.CustomHeight = txtH.Value;
+                    Properties.Settings.Default.Save();
                 }
                 else
                 {
@@ -429,6 +435,9 @@ namespace PsoWindowSize
                 if (chkLockRatio.Checked)
                 {
                     txtW.Value = (int)(txtH.Value * ratio.W / ratio.H);
+                    Properties.Settings.Default.CustomWidth = txtW.Value;
+                    Properties.Settings.Default.CustomHeight = txtH.Value;
+                    Properties.Settings.Default.Save();
                 }
                 else
                 {
@@ -778,12 +787,10 @@ namespace PsoWindowSize
 
         private void txtW_Leave(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Save();
         }
 
         private void txtH_Leave(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Save();
         }
     }
 }
