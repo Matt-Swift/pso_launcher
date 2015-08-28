@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmResizer));
             this.cmdResize = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.fraWindowed = new System.Windows.Forms.GroupBox();
             this.chkCenterWindow = new System.Windows.Forms.CheckBox();
             this.chkAutoResize = new System.Windows.Forms.CheckBox();
             this.rdoCustom = new System.Windows.Forms.RadioButton();
@@ -64,7 +64,7 @@
             this.chkMapFix = new System.Windows.Forms.CheckBox();
             this.cmdExit = new System.Windows.Forms.Button();
             this.chkWindowed = new System.Windows.Forms.CheckBox();
-            this.groupBox1.SuspendLayout();
+            this.fraWindowed.SuspendLayout();
             this.fraCustom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtH)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtW)).BeginInit();
@@ -83,20 +83,20 @@
             this.cmdResize.UseVisualStyleBackColor = true;
             this.cmdResize.Click += new System.EventHandler(this.button1_Click);
             // 
-            // groupBox1
+            // fraWindowed
             // 
-            this.groupBox1.Controls.Add(this.chkCenterWindow);
-            this.groupBox1.Controls.Add(this.chkAutoResize);
-            this.groupBox1.Controls.Add(this.rdoCustom);
-            this.groupBox1.Controls.Add(this.fraCustom);
-            this.groupBox1.Controls.Add(this.rdoPerfect);
-            this.groupBox1.Controls.Add(this.cboRatio);
-            this.groupBox1.Controls.Add(this.cmdResize);
-            this.groupBox1.Location = new System.Drawing.Point(154, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(241, 202);
-            this.groupBox1.TabIndex = 2;
-            this.groupBox1.TabStop = false;
+            this.fraWindowed.Controls.Add(this.chkCenterWindow);
+            this.fraWindowed.Controls.Add(this.chkAutoResize);
+            this.fraWindowed.Controls.Add(this.rdoCustom);
+            this.fraWindowed.Controls.Add(this.fraCustom);
+            this.fraWindowed.Controls.Add(this.rdoPerfect);
+            this.fraWindowed.Controls.Add(this.cboRatio);
+            this.fraWindowed.Controls.Add(this.cmdResize);
+            this.fraWindowed.Location = new System.Drawing.Point(154, 12);
+            this.fraWindowed.Name = "fraWindowed";
+            this.fraWindowed.Size = new System.Drawing.Size(241, 202);
+            this.fraWindowed.TabIndex = 2;
+            this.fraWindowed.TabStop = false;
             // 
             // chkCenterWindow
             // 
@@ -106,7 +106,7 @@
             this.chkCenterWindow.Location = new System.Drawing.Point(86, 141);
             this.chkCenterWindow.Name = "chkCenterWindow";
             this.chkCenterWindow.Size = new System.Drawing.Size(150, 17);
-            this.chkCenterWindow.TabIndex = 9;
+            this.chkCenterWindow.TabIndex = 11;
             this.chkCenterWindow.Text = "Launch Window Centered";
             this.chkCenterWindow.UseVisualStyleBackColor = true;
             this.chkCenterWindow.CheckStateChanged += new System.EventHandler(this.chkCenterWindow_CheckStateChanged);
@@ -120,7 +120,7 @@
             this.chkAutoResize.Location = new System.Drawing.Point(7, 141);
             this.chkAutoResize.Name = "chkAutoResize";
             this.chkAutoResize.Size = new System.Drawing.Size(83, 17);
-            this.chkAutoResize.TabIndex = 8;
+            this.chkAutoResize.TabIndex = 10;
             this.chkAutoResize.Text = "Auto Resize";
             this.chkAutoResize.UseVisualStyleBackColor = true;
             this.chkAutoResize.CheckStateChanged += new System.EventHandler(this.chkAutoResize_CheckStateChanged);
@@ -131,7 +131,7 @@
             this.rdoCustom.Location = new System.Drawing.Point(6, 44);
             this.rdoCustom.Name = "rdoCustom";
             this.rdoCustom.Size = new System.Drawing.Size(83, 17);
-            this.rdoCustom.TabIndex = 3;
+            this.rdoCustom.TabIndex = 6;
             this.rdoCustom.TabStop = true;
             this.rdoCustom.Text = "Custom Size";
             this.rdoCustom.UseVisualStyleBackColor = true;
@@ -161,7 +161,7 @@
             this.chkLockRatio.Location = new System.Drawing.Point(106, 58);
             this.chkLockRatio.Name = "chkLockRatio";
             this.chkLockRatio.Size = new System.Drawing.Size(78, 17);
-            this.chkLockRatio.TabIndex = 6;
+            this.chkLockRatio.TabIndex = 9;
             this.chkLockRatio.Text = "Lock Ratio";
             this.chkLockRatio.UseVisualStyleBackColor = true;
             this.chkLockRatio.CheckStateChanged += new System.EventHandler(this.chkLockRatio_CheckStateChanged);
@@ -199,7 +199,7 @@
             0});
             this.txtH.Name = "txtH";
             this.txtH.Size = new System.Drawing.Size(48, 20);
-            this.txtH.TabIndex = 5;
+            this.txtH.TabIndex = 8;
             this.txtH.Value = new decimal(new int[] {
             600,
             0,
@@ -231,7 +231,7 @@
             0});
             this.txtW.Name = "txtW";
             this.txtW.Size = new System.Drawing.Size(48, 20);
-            this.txtW.TabIndex = 4;
+            this.txtW.TabIndex = 7;
             this.txtW.Value = new decimal(new int[] {
             800,
             0,
@@ -247,7 +247,7 @@
             this.rdoPerfect.Location = new System.Drawing.Point(6, 19);
             this.rdoPerfect.Name = "rdoPerfect";
             this.rdoPerfect.Size = new System.Drawing.Size(102, 17);
-            this.rdoPerfect.TabIndex = 1;
+            this.rdoPerfect.TabIndex = 4;
             this.rdoPerfect.TabStop = true;
             this.rdoPerfect.Text = "4:3 Pixel Perfect";
             this.rdoPerfect.UseVisualStyleBackColor = true;
@@ -265,7 +265,7 @@
             this.cboRatio.Location = new System.Drawing.Point(113, 18);
             this.cboRatio.Name = "cboRatio";
             this.cboRatio.Size = new System.Drawing.Size(121, 21);
-            this.cboRatio.TabIndex = 2;
+            this.cboRatio.TabIndex = 5;
             this.cboRatio.Text = global::PsoWindowSize.Properties.Settings.Default.PresetRezText;
             this.cboRatio.SelectedIndexChanged += new System.EventHandler(this.cboRatio_SelectedIndexChanged);
             // 
@@ -300,7 +300,7 @@
             this.cmdOptions.Location = new System.Drawing.Point(18, 49);
             this.cmdOptions.Name = "cmdOptions";
             this.cmdOptions.Size = new System.Drawing.Size(99, 23);
-            this.cmdOptions.TabIndex = 1;
+            this.cmdOptions.TabIndex = 13;
             this.cmdOptions.Text = "PSO Options";
             this.cmdOptions.UseVisualStyleBackColor = true;
             this.cmdOptions.Click += new System.EventHandler(this.cmdOptions_Click);
@@ -310,7 +310,7 @@
             this.cmdSerial.Location = new System.Drawing.Point(18, 78);
             this.cmdSerial.Name = "cmdSerial";
             this.cmdSerial.Size = new System.Drawing.Size(99, 23);
-            this.cmdSerial.TabIndex = 17;
+            this.cmdSerial.TabIndex = 14;
             this.cmdSerial.Text = "Manage Serials";
             this.cmdSerial.UseVisualStyleBackColor = true;
             this.cmdSerial.Click += new System.EventHandler(this.cmdSerial_Click);
@@ -320,7 +320,7 @@
             this.cmdScreenshot.Location = new System.Drawing.Point(18, 19);
             this.cmdScreenshot.Name = "cmdScreenshot";
             this.cmdScreenshot.Size = new System.Drawing.Size(99, 23);
-            this.cmdScreenshot.TabIndex = 0;
+            this.cmdScreenshot.TabIndex = 12;
             this.cmdScreenshot.Text = "Screenshot";
             this.cmdScreenshot.UseVisualStyleBackColor = true;
             this.cmdScreenshot.Click += new System.EventHandler(this.cmdScreenshot_Click);
@@ -343,7 +343,7 @@
             this.rdoOffline.Location = new System.Drawing.Point(75, 22);
             this.rdoOffline.Name = "rdoOffline";
             this.rdoOffline.Size = new System.Drawing.Size(55, 17);
-            this.rdoOffline.TabIndex = 12;
+            this.rdoOffline.TabIndex = 1;
             this.rdoOffline.Text = "Offline";
             this.rdoOffline.UseVisualStyleBackColor = true;
             // 
@@ -355,7 +355,7 @@
             this.rdoOnline.Location = new System.Drawing.Point(6, 22);
             this.rdoOnline.Name = "rdoOnline";
             this.rdoOnline.Size = new System.Drawing.Size(55, 17);
-            this.rdoOnline.TabIndex = 11;
+            this.rdoOnline.TabIndex = 0;
             this.rdoOnline.TabStop = true;
             this.rdoOnline.Text = "Online";
             this.rdoOnline.UseVisualStyleBackColor = true;
@@ -365,7 +365,7 @@
             this.cmdLaunch.Location = new System.Drawing.Point(18, 45);
             this.cmdLaunch.Name = "cmdLaunch";
             this.cmdLaunch.Size = new System.Drawing.Size(99, 23);
-            this.cmdLaunch.TabIndex = 10;
+            this.cmdLaunch.TabIndex = 2;
             this.cmdLaunch.Text = "Launch";
             this.cmdLaunch.UseVisualStyleBackColor = true;
             this.cmdLaunch.Click += new System.EventHandler(this.cmdLaunch_Click);
@@ -415,7 +415,7 @@
             this.chkVista.Location = new System.Drawing.Point(9, 19);
             this.chkVista.Name = "chkVista";
             this.chkVista.Size = new System.Drawing.Size(216, 17);
-            this.chkVista.TabIndex = 12;
+            this.chkVista.TabIndex = 15;
             this.chkVista.Text = "Keyboard fix for Windows Vista or newer";
             this.chkVista.UseVisualStyleBackColor = true;
             this.chkVista.CheckStateChanged += new System.EventHandler(this.chkVista_CheckStateChanged);
@@ -428,7 +428,7 @@
             this.chkWhiteNames.Location = new System.Drawing.Point(9, 42);
             this.chkWhiteNames.Name = "chkWhiteNames";
             this.chkWhiteNames.Size = new System.Drawing.Size(175, 17);
-            this.chkWhiteNames.TabIndex = 13;
+            this.chkWhiteNames.TabIndex = 16;
             this.chkWhiteNames.Text = "PSO v1 and GC names in white";
             this.chkWhiteNames.UseVisualStyleBackColor = true;
             this.chkWhiteNames.CheckStateChanged += new System.EventHandler(this.chkWhiteNames_CheckStateChanged);
@@ -441,7 +441,7 @@
             this.chkMusicFix.Location = new System.Drawing.Point(9, 66);
             this.chkMusicFix.Name = "chkMusicFix";
             this.chkMusicFix.Size = new System.Drawing.Size(162, 17);
-            this.chkMusicFix.TabIndex = 14;
+            this.chkMusicFix.TabIndex = 17;
             this.chkMusicFix.Text = "Battle music in normal quests";
             this.chkMusicFix.UseVisualStyleBackColor = true;
             this.chkMusicFix.CheckStateChanged += new System.EventHandler(this.chkMusicFix_CheckStateChanged);
@@ -454,7 +454,7 @@
             this.chkWordFilter.Location = new System.Drawing.Point(9, 113);
             this.chkWordFilter.Name = "chkWordFilter";
             this.chkWordFilter.Size = new System.Drawing.Size(109, 17);
-            this.chkWordFilter.TabIndex = 16;
+            this.chkWordFilter.TabIndex = 19;
             this.chkWordFilter.Text = "Disable word filter";
             this.chkWordFilter.UseVisualStyleBackColor = true;
             this.chkWordFilter.CheckStateChanged += new System.EventHandler(this.chkWordFilter_CheckStateChanged);
@@ -467,7 +467,7 @@
             this.chkMapFix.Location = new System.Drawing.Point(9, 90);
             this.chkMapFix.Name = "chkMapFix";
             this.chkMapFix.Size = new System.Drawing.Size(129, 17);
-            this.chkMapFix.TabIndex = 15;
+            this.chkMapFix.TabIndex = 18;
             this.chkMapFix.Text = "Ultimate mode map fix";
             this.chkMapFix.UseVisualStyleBackColor = true;
             this.chkMapFix.CheckStateChanged += new System.EventHandler(this.chkMapFix_CheckStateChanged);
@@ -477,7 +477,7 @@
             this.cmdExit.Location = new System.Drawing.Point(292, 280);
             this.cmdExit.Name = "cmdExit";
             this.cmdExit.Size = new System.Drawing.Size(75, 23);
-            this.cmdExit.TabIndex = 18;
+            this.cmdExit.TabIndex = 20;
             this.cmdExit.Text = "Exit";
             this.cmdExit.UseVisualStyleBackColor = true;
             this.cmdExit.Click += new System.EventHandler(this.cmdExit_Click);
@@ -491,9 +491,10 @@
             this.chkWindowed.Location = new System.Drawing.Point(160, 11);
             this.chkWindowed.Name = "chkWindowed";
             this.chkWindowed.Size = new System.Drawing.Size(77, 17);
-            this.chkWindowed.TabIndex = 11;
+            this.chkWindowed.TabIndex = 3;
             this.chkWindowed.Text = "Windowed";
             this.chkWindowed.UseVisualStyleBackColor = true;
+            this.chkWindowed.CheckedChanged += new System.EventHandler(this.chkWindowed_CheckedChanged);
             this.chkWindowed.CheckStateChanged += new System.EventHandler(this.chkWindowed_CheckStateChanged);
             // 
             // frmResizer
@@ -509,15 +510,15 @@
             this.Controls.Add(this.lblPsoStatus);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.fraWindowed);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmResizer";
             this.Text = "PSO Launcher and Aspect Ratio Correct";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmResizer_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.fraWindowed.ResumeLayout(false);
+            this.fraWindowed.PerformLayout();
             this.fraCustom.ResumeLayout(false);
             this.fraCustom.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtH)).EndInit();
@@ -536,7 +537,7 @@
 
         private System.Windows.Forms.Button cmdResize;
         private System.Windows.Forms.ComboBox cboRatio;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox fraWindowed;
         private System.Windows.Forms.RadioButton rdoCustom;
         private System.Windows.Forms.GroupBox fraCustom;
         private System.Windows.Forms.CheckBox chkLockRatio;

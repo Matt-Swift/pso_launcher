@@ -26,6 +26,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Media;
@@ -346,7 +347,7 @@ namespace PsoWindowSize
                     cmdSerial.Enabled = false;
                     cmdLaunch.Enabled = false;
 
-                    if (chkAutoResize.Checked)
+                    if (chkWindowed.Checked && chkAutoResize.Checked)
                     {
                         int desiredWidth = 0;
                         int desiredHeight = 0;
@@ -461,12 +462,48 @@ namespace PsoWindowSize
                 int number = int.Parse(file.Name.Substring(10, 3));
                 highest = (number > highest) ? number : highest;
             }
-            Bitmap bmp = PrintWindowBlt(processes[0].MainWindowHandle);
-            bmp.Save(string.Format("{0}\\Backup\\pso_image_{1}.bmp", psoBasePath, (++highest).ToString("000")), ImageFormat.Bmp);
 
-            PrintWindow(processes[0].MainWindowHandle); //This is just to flash the screen. 
+            try
+            {
+                Bitmap bmp = PrintWindowBlt(processes[0].MainWindowHandle);
+
+                if (bmp.Width.Equals(640) && bmp.Height.Equals(480))
+                {
+                    bmp.Save(string.Format("{0}\\Backup\\pso_image_{1}.bmp", psoBasePath, (++highest).ToString("000")), ImageFormat.Bmp);
+                }
+                else
+                {
+                    Bitmap resizedBmp = new Bitmap(640, 480);
+                    Graphics gx = Graphics.FromImage(resizedBmp);
+                    ImageAttributes imgAtt = new ImageAttributes();
+
+                    gx.InterpolationMode = InterpolationMode.NearestNeighbor;
+                    gx.DrawImage(bmp, 0, 0, 640, 480);
+
+                    resizedBmp.Save(string.Format("{0}\\Backup\\pso_image_{1}.bmp", psoBasePath, (++highest).ToString("000")), ImageFormat.Bmp);
+
+                    gx.Dispose();
+                    resizedBmp.Dispose();
+                }
+                bmp.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("Screenshot saving failed.\r\n{0}", ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            try
+            {
+                PrintWindow(processes[0].MainWindowHandle); //This is a cheap trick just to flash the screen. 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("Screenshot flash failed.\r\n{0}", ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
             Assembly assembly = Assembly.GetExecutingAssembly();
-
             SoundPlayer player = new SoundPlayer(assembly.GetManifestResourceStream("PsoWindowSize.05_26.wav"));
             player.Play();
         }
@@ -791,6 +828,11 @@ namespace PsoWindowSize
 
         private void txtH_Leave(object sender, EventArgs e)
         {
+        }
+
+        private void chkWindowed_CheckedChanged(object sender, EventArgs e)
+        {
+            fraWindowed.Enabled = ((CheckBox)sender).Checked;
         }
     }
 }
