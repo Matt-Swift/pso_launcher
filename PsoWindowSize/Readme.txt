@@ -1,7 +1,7 @@
 PSO WINDOW ASPECT RATIO CORRECT & LAUCHER
 =========================================
 
-Version 1.1.3
+Version 1.2.2
 Author: Tulio Adriano
 
 
@@ -135,6 +135,10 @@ I'm a member of the dcemulation forum, and you can PM me there if you'd like to 
 
 6. CHANGE HISTORY
 =================
+
+1.2.2
+= Screenshots are now always in the native resolution.
+= Tab order has been fixed.
 
 1.2.1
 = Fixed a bug that caused values reloading on the custom box as they were being typed making it impossible to set a desired value.
