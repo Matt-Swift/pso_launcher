@@ -346,6 +346,11 @@ namespace PsoWindowSize
                     cmdOptions.Enabled = false;
                     cmdSerial.Enabled = false;
                     cmdLaunch.Enabled = false;
+                    if (chkIpPatch.Checked)
+                    {
+                        txtServer.Enabled = false;
+                    }
+                    fraPatches.Enabled = false;
 
                     if (chkWindowed.Checked && chkAutoResize.Checked)
                     {
@@ -380,6 +385,11 @@ namespace PsoWindowSize
                     cmdOptions.Enabled = true;
                     cmdSerial.Enabled = true;
                     cmdLaunch.Enabled = true;
+                    if (chkIpPatch.Checked)
+                    {
+                        txtServer.Enabled = true;
+                    }
+                    fraPatches.Enabled = true;
 
                     hasExePath = false;
                 }
@@ -661,10 +671,14 @@ namespace PsoWindowSize
                 Kernel32.SuspendThread(pOpenThread);
             }
 
-            haxxor.PatchPSO(chkWhiteNames.Checked,
-                            chkWordFilter.Checked,
-                            chkMusicFix.Checked,
-                            chkMapFix.Checked);
+            if (chkIpPatch.Checked)
+            {
+                haxxor.PatchPSO(chkWhiteNames.Checked, chkWordFilter.Checked, chkMusicFix.Checked, chkMapFix.Checked, txtServer.Text.Trim());
+            }
+            else
+            {
+                haxxor.PatchPSO(chkWhiteNames.Checked, chkWordFilter.Checked, chkMusicFix.Checked, chkMapFix.Checked, null);
+            }
 
             /* Wake it up. */
             foreach (ProcessThread pT in psoProc.Threads)
@@ -833,6 +847,16 @@ namespace PsoWindowSize
         private void chkWindowed_CheckedChanged(object sender, EventArgs e)
         {
             fraWindowed.Enabled = ((CheckBox)sender).Checked;
+        }
+
+        private void chkIpPatch_CheckedChanged(object sender, EventArgs e)
+        {
+            txtServer.Enabled = ((CheckBox)sender).Checked;
+        }
+
+        private void chkIpPatch_CheckStateChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
         }
     }
 }

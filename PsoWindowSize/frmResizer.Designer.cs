@@ -32,18 +32,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmResizer));
             this.cmdResize = new System.Windows.Forms.Button();
             this.fraWindowed = new System.Windows.Forms.GroupBox();
-            this.chkCenterWindow = new System.Windows.Forms.CheckBox();
-            this.chkAutoResize = new System.Windows.Forms.CheckBox();
             this.rdoCustom = new System.Windows.Forms.RadioButton();
             this.fraCustom = new System.Windows.Forms.GroupBox();
-            this.chkLockRatio = new System.Windows.Forms.CheckBox();
             this.lblRatio = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtH = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.txtW = new System.Windows.Forms.NumericUpDown();
-            this.rdoPerfect = new System.Windows.Forms.RadioButton();
-            this.cboRatio = new System.Windows.Forms.ComboBox();
             this.lblPsoStatus = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -52,18 +47,25 @@
             this.cmdScreenshot = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.rdoOffline = new System.Windows.Forms.RadioButton();
-            this.rdoOnline = new System.Windows.Forms.RadioButton();
             this.cmdLaunch = new System.Windows.Forms.Button();
             this.cmdStartOffline = new System.Windows.Forms.Button();
             this.cmdStartOnline = new System.Windows.Forms.Button();
             this.fraPatches = new System.Windows.Forms.GroupBox();
+            this.cmdExit = new System.Windows.Forms.Button();
+            this.chkIpPatch = new System.Windows.Forms.CheckBox();
+            this.txtServer = new System.Windows.Forms.TextBox();
             this.chkVista = new System.Windows.Forms.CheckBox();
             this.chkWhiteNames = new System.Windows.Forms.CheckBox();
             this.chkMusicFix = new System.Windows.Forms.CheckBox();
             this.chkWordFilter = new System.Windows.Forms.CheckBox();
             this.chkMapFix = new System.Windows.Forms.CheckBox();
-            this.cmdExit = new System.Windows.Forms.Button();
             this.chkWindowed = new System.Windows.Forms.CheckBox();
+            this.rdoOnline = new System.Windows.Forms.RadioButton();
+            this.chkCenterWindow = new System.Windows.Forms.CheckBox();
+            this.chkAutoResize = new System.Windows.Forms.CheckBox();
+            this.chkLockRatio = new System.Windows.Forms.CheckBox();
+            this.rdoPerfect = new System.Windows.Forms.RadioButton();
+            this.cboRatio = new System.Windows.Forms.ComboBox();
             this.fraWindowed.SuspendLayout();
             this.fraCustom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtH)).BeginInit();
@@ -98,33 +100,6 @@
             this.fraWindowed.TabIndex = 2;
             this.fraWindowed.TabStop = false;
             // 
-            // chkCenterWindow
-            // 
-            this.chkCenterWindow.AutoSize = true;
-            this.chkCenterWindow.Checked = global::PsoWindowSize.Properties.Settings.Default.LaunchCentered;
-            this.chkCenterWindow.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PsoWindowSize.Properties.Settings.Default, "LaunchCentered", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkCenterWindow.Location = new System.Drawing.Point(86, 141);
-            this.chkCenterWindow.Name = "chkCenterWindow";
-            this.chkCenterWindow.Size = new System.Drawing.Size(150, 17);
-            this.chkCenterWindow.TabIndex = 11;
-            this.chkCenterWindow.Text = "Launch Window Centered";
-            this.chkCenterWindow.UseVisualStyleBackColor = true;
-            this.chkCenterWindow.CheckStateChanged += new System.EventHandler(this.chkCenterWindow_CheckStateChanged);
-            // 
-            // chkAutoResize
-            // 
-            this.chkAutoResize.AutoSize = true;
-            this.chkAutoResize.Checked = global::PsoWindowSize.Properties.Settings.Default.AutoResize;
-            this.chkAutoResize.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAutoResize.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PsoWindowSize.Properties.Settings.Default, "AutoResize", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkAutoResize.Location = new System.Drawing.Point(7, 141);
-            this.chkAutoResize.Name = "chkAutoResize";
-            this.chkAutoResize.Size = new System.Drawing.Size(83, 17);
-            this.chkAutoResize.TabIndex = 10;
-            this.chkAutoResize.Text = "Auto Resize";
-            this.chkAutoResize.UseVisualStyleBackColor = true;
-            this.chkAutoResize.CheckStateChanged += new System.EventHandler(this.chkAutoResize_CheckStateChanged);
-            // 
             // rdoCustom
             // 
             this.rdoCustom.AutoSize = true;
@@ -151,20 +126,6 @@
             this.fraCustom.Size = new System.Drawing.Size(227, 82);
             this.fraCustom.TabIndex = 7;
             this.fraCustom.TabStop = false;
-            // 
-            // chkLockRatio
-            // 
-            this.chkLockRatio.AutoSize = true;
-            this.chkLockRatio.Checked = global::PsoWindowSize.Properties.Settings.Default.LockRatio;
-            this.chkLockRatio.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLockRatio.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PsoWindowSize.Properties.Settings.Default, "LockRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkLockRatio.Location = new System.Drawing.Point(106, 58);
-            this.chkLockRatio.Name = "chkLockRatio";
-            this.chkLockRatio.Size = new System.Drawing.Size(78, 17);
-            this.chkLockRatio.TabIndex = 9;
-            this.chkLockRatio.Text = "Lock Ratio";
-            this.chkLockRatio.UseVisualStyleBackColor = true;
-            this.chkLockRatio.CheckStateChanged += new System.EventHandler(this.chkLockRatio_CheckStateChanged);
             // 
             // lblRatio
             // 
@@ -239,40 +200,10 @@
             0});
             this.txtW.ValueChanged += new System.EventHandler(this.txtW_ValueChanged);
             // 
-            // rdoPerfect
-            // 
-            this.rdoPerfect.AutoSize = true;
-            this.rdoPerfect.Checked = global::PsoWindowSize.Properties.Settings.Default.PixelPerfectRez;
-            this.rdoPerfect.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PsoWindowSize.Properties.Settings.Default, "PixelPerfectRez", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.rdoPerfect.Location = new System.Drawing.Point(6, 19);
-            this.rdoPerfect.Name = "rdoPerfect";
-            this.rdoPerfect.Size = new System.Drawing.Size(102, 17);
-            this.rdoPerfect.TabIndex = 4;
-            this.rdoPerfect.TabStop = true;
-            this.rdoPerfect.Text = "4:3 Pixel Perfect";
-            this.rdoPerfect.UseVisualStyleBackColor = true;
-            this.rdoPerfect.CheckedChanged += new System.EventHandler(this.rdoPerfect_CheckedChanged);
-            // 
-            // cboRatio
-            // 
-            this.cboRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::PsoWindowSize.Properties.Settings.Default, "PresetRezText", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cboRatio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboRatio.FormattingEnabled = true;
-            this.cboRatio.Items.AddRange(new object[] {
-            "1x (640 x 480)",
-            "2x (1280 x 960)",
-            "3x (1920 x 1440)"});
-            this.cboRatio.Location = new System.Drawing.Point(113, 18);
-            this.cboRatio.Name = "cboRatio";
-            this.cboRatio.Size = new System.Drawing.Size(121, 21);
-            this.cboRatio.TabIndex = 5;
-            this.cboRatio.Text = global::PsoWindowSize.Properties.Settings.Default.PresetRezText;
-            this.cboRatio.SelectedIndexChanged += new System.EventHandler(this.cboRatio_SelectedIndexChanged);
-            // 
             // lblPsoStatus
             // 
             this.lblPsoStatus.AutoSize = true;
-            this.lblPsoStatus.Location = new System.Drawing.Point(18, 359);
+            this.lblPsoStatus.Location = new System.Drawing.Point(18, 319);
             this.lblPsoStatus.Name = "lblPsoStatus";
             this.lblPsoStatus.Size = new System.Drawing.Size(103, 13);
             this.lblPsoStatus.TabIndex = 8;
@@ -347,19 +278,6 @@
             this.rdoOffline.Text = "Offline";
             this.rdoOffline.UseVisualStyleBackColor = true;
             // 
-            // rdoOnline
-            // 
-            this.rdoOnline.AutoSize = true;
-            this.rdoOnline.Checked = global::PsoWindowSize.Properties.Settings.Default.Online;
-            this.rdoOnline.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PsoWindowSize.Properties.Settings.Default, "Online", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.rdoOnline.Location = new System.Drawing.Point(6, 22);
-            this.rdoOnline.Name = "rdoOnline";
-            this.rdoOnline.Size = new System.Drawing.Size(55, 17);
-            this.rdoOnline.TabIndex = 0;
-            this.rdoOnline.TabStop = true;
-            this.rdoOnline.Text = "Online";
-            this.rdoOnline.UseVisualStyleBackColor = true;
-            // 
             // cmdLaunch
             // 
             this.cmdLaunch.Location = new System.Drawing.Point(18, 45);
@@ -394,6 +312,8 @@
             // 
             // fraPatches
             // 
+            this.fraPatches.Controls.Add(this.chkIpPatch);
+            this.fraPatches.Controls.Add(this.txtServer);
             this.fraPatches.Controls.Add(this.chkVista);
             this.fraPatches.Controls.Add(this.chkWhiteNames);
             this.fraPatches.Controls.Add(this.chkMusicFix);
@@ -401,10 +321,44 @@
             this.fraPatches.Controls.Add(this.chkMapFix);
             this.fraPatches.Location = new System.Drawing.Point(12, 220);
             this.fraPatches.Name = "fraPatches";
-            this.fraPatches.Size = new System.Drawing.Size(241, 136);
+            this.fraPatches.Size = new System.Drawing.Size(383, 96);
             this.fraPatches.TabIndex = 17;
             this.fraPatches.TabStop = false;
             this.fraPatches.Text = "Run-time Patches";
+            // 
+            // cmdExit
+            // 
+            this.cmdExit.Location = new System.Drawing.Point(168, 343);
+            this.cmdExit.Name = "cmdExit";
+            this.cmdExit.Size = new System.Drawing.Size(75, 23);
+            this.cmdExit.TabIndex = 20;
+            this.cmdExit.Text = "Exit";
+            this.cmdExit.UseVisualStyleBackColor = true;
+            this.cmdExit.Click += new System.EventHandler(this.cmdExit_Click);
+            // 
+            // chkIpPatch
+            // 
+            this.chkIpPatch.AutoSize = true;
+            this.chkIpPatch.Checked = global::PsoWindowSize.Properties.Settings.Default.IpPatch;
+            this.chkIpPatch.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkIpPatch.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PsoWindowSize.Properties.Settings.Default, "IpPatch", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkIpPatch.Location = new System.Drawing.Point(184, 65);
+            this.chkIpPatch.Name = "chkIpPatch";
+            this.chkIpPatch.Size = new System.Drawing.Size(67, 17);
+            this.chkIpPatch.TabIndex = 22;
+            this.chkIpPatch.Text = "IP Patch";
+            this.chkIpPatch.UseVisualStyleBackColor = true;
+            this.chkIpPatch.CheckedChanged += new System.EventHandler(this.chkIpPatch_CheckedChanged);
+            this.chkIpPatch.CheckStateChanged += new System.EventHandler(this.chkIpPatch_CheckStateChanged);
+            // 
+            // txtServer
+            // 
+            this.txtServer.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::PsoWindowSize.Properties.Settings.Default, "ServerName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtServer.Location = new System.Drawing.Point(253, 63);
+            this.txtServer.Name = "txtServer";
+            this.txtServer.Size = new System.Drawing.Size(121, 20);
+            this.txtServer.TabIndex = 21;
+            this.txtServer.Text = global::PsoWindowSize.Properties.Settings.Default.ServerName;
             // 
             // chkVista
             // 
@@ -414,9 +368,9 @@
             this.chkVista.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PsoWindowSize.Properties.Settings.Default, "KeyboardFix", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkVista.Location = new System.Drawing.Point(9, 19);
             this.chkVista.Name = "chkVista";
-            this.chkVista.Size = new System.Drawing.Size(216, 17);
+            this.chkVista.Size = new System.Drawing.Size(169, 17);
             this.chkVista.TabIndex = 15;
-            this.chkVista.Text = "Keyboard fix for Windows Vista or newer";
+            this.chkVista.Text = "Keyboard fix for Vista or newer";
             this.chkVista.UseVisualStyleBackColor = true;
             this.chkVista.CheckStateChanged += new System.EventHandler(this.chkVista_CheckStateChanged);
             // 
@@ -425,7 +379,7 @@
             this.chkWhiteNames.AutoSize = true;
             this.chkWhiteNames.Checked = global::PsoWindowSize.Properties.Settings.Default.NameFix;
             this.chkWhiteNames.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PsoWindowSize.Properties.Settings.Default, "NameFix", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkWhiteNames.Location = new System.Drawing.Point(9, 42);
+            this.chkWhiteNames.Location = new System.Drawing.Point(184, 19);
             this.chkWhiteNames.Name = "chkWhiteNames";
             this.chkWhiteNames.Size = new System.Drawing.Size(175, 17);
             this.chkWhiteNames.TabIndex = 16;
@@ -438,7 +392,7 @@
             this.chkMusicFix.AutoSize = true;
             this.chkMusicFix.Checked = global::PsoWindowSize.Properties.Settings.Default.MusicFix;
             this.chkMusicFix.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PsoWindowSize.Properties.Settings.Default, "MusicFix", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkMusicFix.Location = new System.Drawing.Point(9, 66);
+            this.chkMusicFix.Location = new System.Drawing.Point(9, 42);
             this.chkMusicFix.Name = "chkMusicFix";
             this.chkMusicFix.Size = new System.Drawing.Size(162, 17);
             this.chkMusicFix.TabIndex = 17;
@@ -451,7 +405,7 @@
             this.chkWordFilter.AutoSize = true;
             this.chkWordFilter.Checked = global::PsoWindowSize.Properties.Settings.Default.WordFilter;
             this.chkWordFilter.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PsoWindowSize.Properties.Settings.Default, "WordFilter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkWordFilter.Location = new System.Drawing.Point(9, 113);
+            this.chkWordFilter.Location = new System.Drawing.Point(9, 65);
             this.chkWordFilter.Name = "chkWordFilter";
             this.chkWordFilter.Size = new System.Drawing.Size(109, 17);
             this.chkWordFilter.TabIndex = 19;
@@ -464,23 +418,13 @@
             this.chkMapFix.AutoSize = true;
             this.chkMapFix.Checked = global::PsoWindowSize.Properties.Settings.Default.MapFix;
             this.chkMapFix.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PsoWindowSize.Properties.Settings.Default, "MapFix", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkMapFix.Location = new System.Drawing.Point(9, 90);
+            this.chkMapFix.Location = new System.Drawing.Point(184, 42);
             this.chkMapFix.Name = "chkMapFix";
             this.chkMapFix.Size = new System.Drawing.Size(129, 17);
             this.chkMapFix.TabIndex = 18;
             this.chkMapFix.Text = "Ultimate mode map fix";
             this.chkMapFix.UseVisualStyleBackColor = true;
             this.chkMapFix.CheckStateChanged += new System.EventHandler(this.chkMapFix_CheckStateChanged);
-            // 
-            // cmdExit
-            // 
-            this.cmdExit.Location = new System.Drawing.Point(292, 280);
-            this.cmdExit.Name = "cmdExit";
-            this.cmdExit.Size = new System.Drawing.Size(75, 23);
-            this.cmdExit.TabIndex = 20;
-            this.cmdExit.Text = "Exit";
-            this.cmdExit.UseVisualStyleBackColor = true;
-            this.cmdExit.Click += new System.EventHandler(this.cmdExit_Click);
             // 
             // chkWindowed
             // 
@@ -496,6 +440,90 @@
             this.chkWindowed.UseVisualStyleBackColor = true;
             this.chkWindowed.CheckedChanged += new System.EventHandler(this.chkWindowed_CheckedChanged);
             this.chkWindowed.CheckStateChanged += new System.EventHandler(this.chkWindowed_CheckStateChanged);
+            // 
+            // rdoOnline
+            // 
+            this.rdoOnline.AutoSize = true;
+            this.rdoOnline.Checked = global::PsoWindowSize.Properties.Settings.Default.Online;
+            this.rdoOnline.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PsoWindowSize.Properties.Settings.Default, "Online", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.rdoOnline.Location = new System.Drawing.Point(6, 22);
+            this.rdoOnline.Name = "rdoOnline";
+            this.rdoOnline.Size = new System.Drawing.Size(55, 17);
+            this.rdoOnline.TabIndex = 0;
+            this.rdoOnline.TabStop = true;
+            this.rdoOnline.Text = "Online";
+            this.rdoOnline.UseVisualStyleBackColor = true;
+            // 
+            // chkCenterWindow
+            // 
+            this.chkCenterWindow.AutoSize = true;
+            this.chkCenterWindow.Checked = global::PsoWindowSize.Properties.Settings.Default.LaunchCentered;
+            this.chkCenterWindow.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PsoWindowSize.Properties.Settings.Default, "LaunchCentered", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkCenterWindow.Location = new System.Drawing.Point(86, 141);
+            this.chkCenterWindow.Name = "chkCenterWindow";
+            this.chkCenterWindow.Size = new System.Drawing.Size(150, 17);
+            this.chkCenterWindow.TabIndex = 11;
+            this.chkCenterWindow.Text = "Launch Window Centered";
+            this.chkCenterWindow.UseVisualStyleBackColor = true;
+            this.chkCenterWindow.CheckStateChanged += new System.EventHandler(this.chkCenterWindow_CheckStateChanged);
+            // 
+            // chkAutoResize
+            // 
+            this.chkAutoResize.AutoSize = true;
+            this.chkAutoResize.Checked = global::PsoWindowSize.Properties.Settings.Default.AutoResize;
+            this.chkAutoResize.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAutoResize.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PsoWindowSize.Properties.Settings.Default, "AutoResize", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkAutoResize.Location = new System.Drawing.Point(7, 141);
+            this.chkAutoResize.Name = "chkAutoResize";
+            this.chkAutoResize.Size = new System.Drawing.Size(83, 17);
+            this.chkAutoResize.TabIndex = 10;
+            this.chkAutoResize.Text = "Auto Resize";
+            this.chkAutoResize.UseVisualStyleBackColor = true;
+            this.chkAutoResize.CheckStateChanged += new System.EventHandler(this.chkAutoResize_CheckStateChanged);
+            // 
+            // chkLockRatio
+            // 
+            this.chkLockRatio.AutoSize = true;
+            this.chkLockRatio.Checked = global::PsoWindowSize.Properties.Settings.Default.LockRatio;
+            this.chkLockRatio.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLockRatio.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PsoWindowSize.Properties.Settings.Default, "LockRatio", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkLockRatio.Location = new System.Drawing.Point(106, 58);
+            this.chkLockRatio.Name = "chkLockRatio";
+            this.chkLockRatio.Size = new System.Drawing.Size(78, 17);
+            this.chkLockRatio.TabIndex = 9;
+            this.chkLockRatio.Text = "Lock Ratio";
+            this.chkLockRatio.UseVisualStyleBackColor = true;
+            this.chkLockRatio.CheckStateChanged += new System.EventHandler(this.chkLockRatio_CheckStateChanged);
+            // 
+            // rdoPerfect
+            // 
+            this.rdoPerfect.AutoSize = true;
+            this.rdoPerfect.Checked = global::PsoWindowSize.Properties.Settings.Default.PixelPerfectRez;
+            this.rdoPerfect.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PsoWindowSize.Properties.Settings.Default, "PixelPerfectRez", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.rdoPerfect.Location = new System.Drawing.Point(6, 19);
+            this.rdoPerfect.Name = "rdoPerfect";
+            this.rdoPerfect.Size = new System.Drawing.Size(102, 17);
+            this.rdoPerfect.TabIndex = 4;
+            this.rdoPerfect.TabStop = true;
+            this.rdoPerfect.Text = "4:3 Pixel Perfect";
+            this.rdoPerfect.UseVisualStyleBackColor = true;
+            this.rdoPerfect.CheckedChanged += new System.EventHandler(this.rdoPerfect_CheckedChanged);
+            // 
+            // cboRatio
+            // 
+            this.cboRatio.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::PsoWindowSize.Properties.Settings.Default, "PresetRezText", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cboRatio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboRatio.FormattingEnabled = true;
+            this.cboRatio.Items.AddRange(new object[] {
+            "1x (640 x 480)",
+            "2x (1280 x 960)",
+            "3x (1920 x 1440)"});
+            this.cboRatio.Location = new System.Drawing.Point(113, 18);
+            this.cboRatio.Name = "cboRatio";
+            this.cboRatio.Size = new System.Drawing.Size(121, 21);
+            this.cboRatio.TabIndex = 5;
+            this.cboRatio.Text = global::PsoWindowSize.Properties.Settings.Default.PresetRezText;
+            this.cboRatio.SelectedIndexChanged += new System.EventHandler(this.cboRatio_SelectedIndexChanged);
             // 
             // frmResizer
             // 
@@ -569,6 +597,8 @@
         private System.Windows.Forms.GroupBox fraPatches;
         private System.Windows.Forms.Button cmdExit;
         private System.Windows.Forms.CheckBox chkCenterWindow;
+        private System.Windows.Forms.TextBox txtServer;
+        private System.Windows.Forms.CheckBox chkIpPatch;
     }
 }
 

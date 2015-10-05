@@ -1,7 +1,7 @@
 PSO WINDOW ASPECT RATIO CORRECT & LAUCHER
 =========================================
 
-Version 1.2.2
+Version 1.3
 Author: Tulio Adriano
 
 
@@ -110,6 +110,10 @@ The program is a standalone EXE that can be launched before or after PSO is runn
    -------------------
    Allows bad words to be displayed unfiltered in online chats.
 
+   IP Patch
+   --------
+   Specify if the IP patch will be applied. If so, the server address can be entered in the box next to it. This may be useful for people wanting to test other servers. This box accepts both domain name addresses or direct IP addresses.
+
 After the desired resolution and patch settings are selected, click Launch to start PSO. While PSO is running the resolution can be changed, but other patches will require PSO to be restarted. 
 
 
@@ -125,6 +129,7 @@ This program is provided as is and does not have any warranties. Use it at your 
 I'd like to thank everyone who is involved in keeping the PSO community alive and playing PSO online (sounds redundant, I know) possible. 
 Special thanks goes to BlueCrab and Aleron Ives for all the help they gave me, and for all the hard work they put in making all of the software available to enable everyone to play PSO on Sylverant.
 Well... BlueCrab, BlueCrab, BlueCrab!!! Thanks again and again and again, for giving me access to your source code that does all this patching. Without that it would have taken me several months to figure all out by myself, rather than just one day. 
+More special thanks to Treamcaster for having encouraged me to bring this program to be way more than a resizer, also for the good times we spent online chatting on PSO lobby and the games we played together.
 
 
 5. CONTACT
@@ -135,6 +140,9 @@ I'm a member of the dcemulation forum, and you can PM me there if you'd like to 
 
 6. CHANGE HISTORY
 =================
+
+1.3
++ Added a text box to enter what server address to connect to. 
 
 1.2.2
 = Screenshots are now always in the native resolution.

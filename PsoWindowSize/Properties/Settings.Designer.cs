@@ -214,5 +214,29 @@ namespace PsoWindowSize.Properties {
                 this["LaunchCentered"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("sylverant.net")]
+        public string ServerName {
+            get {
+                return ((string)(this["ServerName"]));
+            }
+            set {
+                this["ServerName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IpPatch {
+            get {
+                return ((bool)(this["IpPatch"]));
+            }
+            set {
+                this["IpPatch"] = value;
+            }
+        }
     }
 }
