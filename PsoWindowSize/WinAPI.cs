@@ -174,72 +174,136 @@ namespace PsoWindowSize
     //    Bottom = new IntPtr(1);
     //}
 
-    //public static class nIndex
-    //{
-    //    public static readonly int
-    //    GWL_EXSTYLE = -20,
-    //    GWL_HINSTANCE = -6,
-    //    GWL_ID = -12,
-    //    GWL_STYLE = -16,
-    //    GWL_USERDATA = -21,
-    //    GWL_WNDPROC = -4;
-    //}
+    public static class nIndex
+    {
+        public static readonly int
+        GWL_EXSTYLE = -20,
+        GWL_HINSTANCE = -6,
+        GWL_ID = -12,
+        GWL_STYLE = -16,
+        GWL_USERDATA = -21,
+        GWL_WNDPROC = -4;
+    }
 
-    //public static class dwNewLong
-    //{
-    //    public static readonly long
-    //    WS_BORDER = 0x00800000L,
-    //    WS_CAPTION = 0x00C00000L,
-    //    WS_CHILD = 0x40000000L,
-    //    WS_CHILDWINDOW = 0x40000000L,
-    //    WS_CLIPCHILDREN = 0x02000000L,
-    //    WS_CLIPSIBLINGS = 0x04000000L,
-    //    WS_DISABLED = 0x08000000L,
-    //    WS_DLGFRAME = 0x00400000L,
-    //    WS_GROUP = 0x00020000L,
-    //    WS_HSCROLL = 0x00100000L,
-    //    WS_ICONIC = 0x20000000L,
-    //    WS_MAXIMIZE = 0x01000000L,
-    //    WS_MAXIMIZEBOX = 0x00010000L,
-    //    WS_MINIMIZE = 0x20000000L,
-    //    WS_MINIMIZEBOX = 0x00020000L,
-    //    WS_OVERLAPPED = 0x00000000L,
-    //    WS_POPUP = 0x80000000L,
-    //    WS_SIZEBOX = 0x00040000L,
-    //    WS_SYSMENU = 0x00080000L,
-    //    WS_TABSTOP = 0x00010000L,
-    //    WS_THICKFRAME = 0x00040000L,
-    //    WS_TILED = 0x00000000L,
-    //    WS_VISIBLE = 0x10000000L,
-    //    WS_VSCROLL = 0x00200000L;
+    public static class dwNewLong
+    {
+        public static readonly uint
+        WS_BORDER = 0x00800000,
+        WS_CAPTION = 0x00C00000,
+        WS_CHILD = 0x40000000,
+        WS_CHILDWINDOW = 0x40000000,
+        WS_CLIPCHILDREN = 0x02000000,
+        WS_CLIPSIBLINGS = 0x04000000,
+        WS_DISABLED = 0x08000000,
+        WS_DLGFRAME = 0x00400000,
+        WS_GROUP = 0x00020000,
+        WS_HSCROLL = 0x00100000,
+        WS_ICONIC = 0x20000000,
+        WS_MAXIMIZE = 0x01000000,
+        WS_MAXIMIZEBOX = 0x00010000,
+        WS_MINIMIZE = 0x20000000,
+        WS_MINIMIZEBOX = 0x00020000,
+        WS_OVERLAPPED = 0x00000000,
+        WS_POPUP = 0x80000000,
+        WS_SIZEBOX = 0x00040000,
+        WS_SYSMENU = 0x00080000,
+        WS_TABSTOP = 0x00010000,
+        WS_THICKFRAME = 0x00040000,
+        WS_TILED = 0x00000000,
+        WS_VISIBLE = 0x10000000,
+        WS_VSCROLL = 0x00200000;
 
-    //    public static readonly long WS_OVERLAPPEDWINDOW = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX;
-    //    public static readonly long WS_POPUPWINDOW = WS_POPUP | WS_BORDER | WS_SYSMENU;
-    //    public static readonly long WS_TILEDWINDOW = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX;
-    //}
+        public static readonly long WS_OVERLAPPEDWINDOW = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX;
+        public static readonly long WS_POPUPWINDOW = WS_POPUP | WS_BORDER | WS_SYSMENU;
+        public static readonly long WS_TILEDWINDOW = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX;
+    }
 
     /// <summary>
     /// SetWindowPos Flags
     /// </summary>
-    //public static class SetWindowPosFlags
-    //{
-    //    public static readonly uint
-    //    NOSIZE = 0x0001,
-    //    NOMOVE = 0x0002,
-    //    NOZORDER = 0x0004,
-    //    NOREDRAW = 0x0008,
-    //    NOACTIVATE = 0x0010,
-    //    DRAWFRAME = 0x0020,
-    //    FRAMECHANGED = 0x0020,
-    //    SHOWWINDOW = 0x0040,
-    //    HIDEWINDOW = 0x0080,
-    //    NOCOPYBITS = 0x0100,
-    //    NOOWNERZORDER = 0x0200,
-    //    NOREPOSITION = 0x0200,
-    //    NOSENDCHANGING = 0x0400,
-    //    DEFERERASE = 0x2000,
-    //    ASYNCWINDOWPOS = 0x4000;
-    //}
+    public static class SWP
+    {
+        public static readonly uint
+        NOSIZE = 0x0001,
+        NOMOVE = 0x0002,
+        NOZORDER = 0x0004,
+        NOREDRAW = 0x0008,
+        NOACTIVATE = 0x0010,
+        DRAWFRAME = 0x0020,
+        FRAMECHANGED = 0x0020,
+        SHOWWINDOW = 0x0040,
+        HIDEWINDOW = 0x0080,
+        NOCOPYBITS = 0x0100,
+        NOOWNERZORDER = 0x0200,
+        NOREPOSITION = 0x0200,
+        NOSENDCHANGING = 0x0400,
+        DEFERERASE = 0x2000,
+        ASYNCWINDOWPOS = 0x4000;
+    }
+
+    /// <summary>Enumeration of the different ways of showing a window using 
+    /// ShowWindow</summary>
+    public static class WindowShowStyle 
+    {
+        public static uint
+            /// <summary>Hides the window and activates another window.</summary>
+            /// <remarks>See SW_HIDE</remarks>
+        Hide = 0,
+            /// <summary>Activates and displays a window. If the window is minimized 
+            /// or maximized, the system restores it to its original size and 
+            /// position. An application should specify this flag when displaying 
+            /// the window for the first time.</summary>
+            /// <remarks>See SW_SHOWNORMAL</remarks>
+        ShowNormal = 1,
+            /// <summary>Activates the window and displays it as a minimized window.</summary>
+            /// <remarks>See SW_SHOWMINIMIZED</remarks>
+        ShowMinimized = 2,
+            /// <summary>Activates the window and displays it as a maximized window.</summary>
+            /// <remarks>See SW_SHOWMAXIMIZED</remarks>
+        ShowMaximized = 3,
+            /// <summary>Maximizes the specified window.</summary>
+            /// <remarks>See SW_MAXIMIZE</remarks>
+        Maximize = 3,
+            /// <summary>Displays a window in its most recent size and position. 
+            /// This value is similar to "ShowNormal", except the window is not 
+            /// actived.</summary>
+            /// <remarks>See SW_SHOWNOACTIVATE</remarks>
+        ShowNormalNoActivate = 4,
+            /// <summary>Activates the window and displays it in its current size 
+            /// and position.</summary>
+            /// <remarks>See SW_SHOW</remarks>
+        Show = 5,
+            /// <summary>Minimizes the specified window and activates the next 
+            /// top-level window in the Z order.</summary>
+            /// <remarks>See SW_MINIMIZE</remarks>
+        Minimize = 6,
+            /// <summary>Displays the window as a minimized window. This value is 
+            /// similar to "ShowMinimized", except the window is not activated.</summary>
+            /// <remarks>See SW_SHOWMINNOACTIVE</remarks>
+        ShowMinNoActivate = 7,
+            /// <summary>Displays the window in its current size and position. This 
+            /// value is similar to "Show", except the window is not activated.</summary>
+            /// <remarks>See SW_SHOWNA</remarks>
+        ShowNoActivate = 8,
+            /// <summary>Activates and displays the window. If the window is 
+            /// minimized or maximized, the system restores it to its original size 
+            /// and position. An application should specify this flag when restoring 
+            /// a minimized window.</summary>
+            /// <remarks>See SW_RESTORE</remarks>
+        Restore = 9,
+            /// <summary>Sets the show state based on the SW_ value specified in the 
+            /// STARTUPINFO structure passed to the CreateProcess function by the 
+            /// program that started the application.</summary>
+            /// <remarks>See SW_SHOWDEFAULT</remarks>
+        ShowDefault = 10,
+            /// <summary>Windows 2000/XP: Minimizes a window, even if the thread 
+            /// that owns the window is hung. This flag should only be used when 
+            /// minimizing windows from a different thread.</summary>
+            /// <remarks>See SW_FORCEMINIMIZE</remarks>
+        ForceMinimized = 11;
+    }
+
+
     public static class WinAPI
     {
         //public static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
@@ -274,7 +338,21 @@ namespace PsoWindowSize
         /// <returns>If the function succeeds, the return value is the previous value of the specified 32-bit integer. 
         /// If the function fails, the return value is zero. To get extended error information, call GetLastError. </returns>
         [DllImport("user32.dll")]
-        public static extern int SetWindowLong(IntPtr hWnd, int nIndex, long dwNewLong);
+        public static extern int SetWindowLong(IntPtr hWnd, int nIndex, uint dwNewLong);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern uint GetWindowLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr SetParent(IntPtr child, IntPtr newParent);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr ShowWindow(IntPtr handle, uint command);
+
+        // For Windows Mobile, replace user32.dll with coredll.dll 
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);

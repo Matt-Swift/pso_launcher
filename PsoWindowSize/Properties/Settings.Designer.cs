@@ -238,5 +238,17 @@ namespace PsoWindowSize.Properties {
                 this["IpPatch"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EmbedFullScreen {
+            get {
+                return ((bool)(this["EmbedFullScreen"]));
+            }
+            set {
+                this["EmbedFullScreen"] = value;
+            }
+        }
     }
 }

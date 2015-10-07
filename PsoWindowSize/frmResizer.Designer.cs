@@ -52,6 +52,7 @@
             this.cmdStartOnline = new System.Windows.Forms.Button();
             this.fraPatches = new System.Windows.Forms.GroupBox();
             this.cmdExit = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.chkIpPatch = new System.Windows.Forms.CheckBox();
             this.txtServer = new System.Windows.Forms.TextBox();
             this.chkVista = new System.Windows.Forms.CheckBox();
@@ -61,6 +62,7 @@
             this.chkMapFix = new System.Windows.Forms.CheckBox();
             this.chkWindowed = new System.Windows.Forms.CheckBox();
             this.rdoOnline = new System.Windows.Forms.RadioButton();
+            this.chkEmbedFullScreen = new System.Windows.Forms.CheckBox();
             this.chkCenterWindow = new System.Windows.Forms.CheckBox();
             this.chkAutoResize = new System.Windows.Forms.CheckBox();
             this.chkLockRatio = new System.Windows.Forms.CheckBox();
@@ -77,7 +79,7 @@
             // 
             // cmdResize
             // 
-            this.cmdResize.Location = new System.Drawing.Point(86, 166);
+            this.cmdResize.Location = new System.Drawing.Point(153, 166);
             this.cmdResize.Name = "cmdResize";
             this.cmdResize.Size = new System.Drawing.Size(75, 23);
             this.cmdResize.TabIndex = 7;
@@ -87,6 +89,7 @@
             // 
             // fraWindowed
             // 
+            this.fraWindowed.Controls.Add(this.chkEmbedFullScreen);
             this.fraWindowed.Controls.Add(this.chkCenterWindow);
             this.fraWindowed.Controls.Add(this.chkAutoResize);
             this.fraWindowed.Controls.Add(this.rdoCustom);
@@ -336,6 +339,16 @@
             this.cmdExit.UseVisualStyleBackColor = true;
             this.cmdExit.Click += new System.EventHandler(this.cmdExit_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(334, 402);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(60, 43);
+            this.button1.TabIndex = 21;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // chkIpPatch
             // 
             this.chkIpPatch.AutoSize = true;
@@ -454,6 +467,19 @@
             this.rdoOnline.Text = "Online";
             this.rdoOnline.UseVisualStyleBackColor = true;
             // 
+            // chkEmbedFullScreen
+            // 
+            this.chkEmbedFullScreen.AutoSize = true;
+            this.chkEmbedFullScreen.Checked = global::PsoWindowSize.Properties.Settings.Default.EmbedFullScreen;
+            this.chkEmbedFullScreen.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PsoWindowSize.Properties.Settings.Default, "EmbedFullScreen", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkEmbedFullScreen.Location = new System.Drawing.Point(6, 170);
+            this.chkEmbedFullScreen.Name = "chkEmbedFullScreen";
+            this.chkEmbedFullScreen.Size = new System.Drawing.Size(115, 17);
+            this.chkEmbedFullScreen.TabIndex = 3;
+            this.chkEmbedFullScreen.Text = "Embed Full Screen";
+            this.chkEmbedFullScreen.UseVisualStyleBackColor = true;
+            this.chkEmbedFullScreen.CheckStateChanged += new System.EventHandler(this.chkEmbedFullScreen_CheckStateChanged);
+            // 
             // chkCenterWindow
             // 
             this.chkCenterWindow.AutoSize = true;
@@ -530,6 +556,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(404, 378);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.cmdExit);
             this.Controls.Add(this.fraPatches);
             this.Controls.Add(this.cmdStartOffline);
@@ -599,6 +626,8 @@
         private System.Windows.Forms.CheckBox chkCenterWindow;
         private System.Windows.Forms.TextBox txtServer;
         private System.Windows.Forms.CheckBox chkIpPatch;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox chkEmbedFullScreen;
     }
 }
 

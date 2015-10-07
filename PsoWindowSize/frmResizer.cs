@@ -61,6 +61,13 @@ namespace PsoWindowSize
         int ScreenWidth = 0;
         int ScreenHeight = 0;
 
+        const int ERROR_DEVICE_NOT_CONNECTED = 0x48F;
+        const int ERROR_SUCCESS = 0;
+
+        frmPSO psoForm = null;
+        IntPtr wnd = IntPtr.Zero;
+        Process psoProc = null;
+
         private Ratio GetRatio(int resW, int resH)
         {
             ratio = new Ratio();
@@ -376,6 +383,12 @@ namespace PsoWindowSize
                 }
                 else
                 {
+                    if (psoForm != null)
+                    {
+                        psoForm.Close();
+                        psoForm.Dispose();
+                    }
+
                     lblPsoStatus.Text = "PSO is NOT running.";
 
                     cmdResize.Enabled = false;
@@ -460,7 +473,7 @@ namespace PsoWindowSize
 
         private void cmdScreenshot_Click(object sender, EventArgs e)
         {
-            Process[] processes = Process.GetProcessesByName("PSO");
+//            Process[] processes = Process.GetProcessesByName("PSO");
 
             string psoBasePath = exePath.Substring(0, exePath.LastIndexOf('\\'));
 
@@ -475,7 +488,7 @@ namespace PsoWindowSize
 
             try
             {
-                Bitmap bmp = PrintWindowBlt(processes[0].MainWindowHandle);
+                Bitmap bmp = PrintWindowBlt(wnd);//processes[0].MainWindowHandle);
 
                 if (bmp.Width.Equals(640) && bmp.Height.Equals(480))
                 {
@@ -505,7 +518,7 @@ namespace PsoWindowSize
 
             try
             {
-                PrintWindow(processes[0].MainWindowHandle); //This is a cheap trick just to flash the screen. 
+                PrintWindow(wnd);//processes[0].MainWindowHandle); //This is a cheap trick just to flash the screen. 
             }
             catch (Exception ex)
             {
@@ -592,6 +605,16 @@ namespace PsoWindowSize
 
         private void cmdLaunch_Click(object sender, EventArgs e)
         {
+            //Check if a controller is connected
+            XInputState controller = new XInputState();
+            if (XInput.XInputGetState(0, ref controller).Equals(ERROR_DEVICE_NOT_CONNECTED))
+            {
+                if (MessageBox.Show(this, "There are no controllers connected. Do you wish to start anyway?", "No controller found", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.No))
+                {
+                    return;
+                }
+            }
+
             /* Don't try to start the game twice... */
             bool windowed = chkWindowed.Checked;
 
@@ -634,7 +657,7 @@ namespace PsoWindowSize
                 return;
             }
 
-            Process psoProc = Process.GetProcessById((int)pi.dwProcessId);
+            psoProc = Process.GetProcessById((int)pi.dwProcessId);
 
             string ChannelName = null;
             RemoteHooking.IpcCreateServer<YggdrasillInterface>(ref ChannelName, WellKnownObjectMode.SingleCall);
@@ -704,7 +727,7 @@ namespace PsoWindowSize
                 int clientWidth = 0;
 
                 Thread.Sleep(750);
-                IntPtr wnd = User32.FindWindow("PSO for PC", "PSO for PC");
+                wnd = User32.FindWindow("PSO for PC", "PSO for PC");
 
                 WinAPI.GetWindowRect(wnd, ref windowRect);
                 windowHeight = windowRect.Bottom - windowRect.Top;
@@ -737,10 +760,51 @@ namespace PsoWindowSize
                     startY = (Screen.PrimaryScreen.WorkingArea.Height - desiredHeight) / 2;
                 }
 
-                User32.SetWindowPos(wnd, IntPtr.Zero, startX, startY, desiredWidth, desiredHeight, 2);
-                WinAPI.MoveWindow(wnd, startX, startY, desiredWidth, desiredHeight, true);
+                if (chkEmbedFullScreen.Checked)
+                {
+                    uint lStyle = WinAPI.GetWindowLong(wnd, nIndex.GWL_STYLE);
+                    lStyle &= ~(dwNewLong.WS_CAPTION | dwNewLong.WS_THICKFRAME | dwNewLong.WS_MINIMIZE | dwNewLong.WS_MAXIMIZE | dwNewLong.WS_SYSMENU);
+                    WinAPI.SetWindowLong(wnd, nIndex.GWL_STYLE, lStyle);
 
-                User32.SendMessage(wnd, User32.WM_SETICON, User32.ICON_BIG, icon.Handle);
+
+                    int wWidth = 640;
+                    int wHeight = 480;
+
+                    if (rdoPerfect.Checked)
+                    {
+                        wWidth *= (cboRatio.SelectedIndex + 1);
+                        wHeight *= (cboRatio.SelectedIndex + 1);
+                    }
+                    else
+                    {
+                        wWidth = (int)txtW.Value;
+                        wHeight = (int)txtH.Value;
+                    }
+
+                    psoForm = new frmPSO();
+                    psoForm.WindowState = FormWindowState.Normal;
+                    psoForm.FormBorderStyle = FormBorderStyle.None;
+                    psoForm.pnlPSO.Width = wWidth;
+                    psoForm.pnlPSO.Height = wHeight;
+                    psoForm.Bounds = Screen.PrimaryScreen.Bounds;
+                    psoForm.PSOhWnd = wnd;
+
+                    WinAPI.SetWindowPos(wnd, IntPtr.Zero, 0, 0, 0, 0, (SWP.NOSIZE | SWP.SHOWWINDOW));
+                    WinAPI.MoveWindow(wnd, 0, 0, wWidth, wHeight, true);
+                    WinAPI.SetParent(wnd, psoForm.pnlPSO.Handle);
+                    //WinAPI.ShowWindow(wnd, WindowShowStyle.ShowNormal);
+
+                    psoForm.Show();
+                    psoForm.Activate();
+                    WinAPI.SetForegroundWindow(wnd);
+                }
+                else
+                {
+                    User32.SetWindowPos(wnd, IntPtr.Zero, startX, startY, desiredWidth, desiredHeight, 2);
+                    WinAPI.MoveWindow(wnd, startX, startY, desiredWidth, desiredHeight, true);
+
+                    User32.SendMessage(wnd, User32.WM_SETICON, User32.ICON_BIG, icon.Handle);
+                }
             }
 
             Properties.Settings.Default.Save();
@@ -775,6 +839,15 @@ namespace PsoWindowSize
 
         private void frmResizer_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (psoForm!=null && psoProc != null)
+            {
+                if (!psoProc.HasExited)
+                {
+                    psoProc.Kill();
+                }
+            }
+
+
             RegistryKey k = Registry.CurrentUser.OpenSubKey(@"Software\SonicTeam\PSOV2", true);
             k.SetValue("CTRLFLAG1", ctrlFlagValue, RegistryValueKind.DWord);
             k.Close();
@@ -855,6 +928,20 @@ namespace PsoWindowSize
         }
 
         private void chkIpPatch_CheckStateChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            frmPSO psoForm = new frmPSO();
+            psoForm.WindowState = FormWindowState.Normal;
+            psoForm.FormBorderStyle = FormBorderStyle.None;
+            psoForm.Bounds = Screen.PrimaryScreen.Bounds;
+            psoForm.Show();
+        }
+
+        private void chkEmbedFullScreen_CheckStateChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.Save();
         }
