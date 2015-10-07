@@ -1,7 +1,7 @@
 PSO WINDOW ASPECT RATIO CORRECT & LAUCHER
 =========================================
 
-Version 1.3
+Version 1.4
 Author: Tulio Adriano
 
 
@@ -45,6 +45,7 @@ The program is a standalone EXE that can be launched before or after PSO is runn
    -------
    Use this option to play offline and progress through the game.
 
+   Note: When the launch button is pressed, the launcher will check if a controller is connected. If not, a message will be shown to notify that no controllers were found, thus giving you the chance to do so before proceeding.
 
    TOOLS
    =====
@@ -69,6 +70,10 @@ The program is a standalone EXE that can be launched before or after PSO is runn
    -----------------
    This option presents a drop down with 3 presets for the PSO window size: 1x, 2x, and 3x. Each multiplier calculates the window size based on its native 640x480 resolution. 2x looks very good on 1080 monitors or TVs.
 
+   4:3 Screen Height
+   -----------------
+   Detects the height of your screen and automatically calculates the width in a 4:3 aspect ratio to fill your screen with the game window. This mode works best in Full Screen since different windows versions may reposition or resize the window if it goes larger than the screen (game field + borders). 
+
    Custom Size
    -----------
    This option allows you to set a free resolution. Here are the options:
@@ -83,6 +88,10 @@ The program is a standalone EXE that can be launched before or after PSO is runn
    Launch Window Centered
    ----------------------
    If checked when the game is launched via the launcher, it will auto position PSO window at the center of your primary screen.
+
+   Embed Full Screen
+   -----------------
+   This will make PSO go full screen without changing your monitor resolution. If the game window size is smaller than the screen size (pixel perfect or custom options) the game window will be centered. Otherwise it will be aligned to the top left corner of the screen. 
 
    Remarks: When lock ratio is not checked, any value between 1 and 8192 can be entered on either box, and the label under them will display the aspect ratio corresponding to the present values entered. 
 
@@ -140,6 +149,12 @@ I'm a member of the dcemulation forum, and you can PM me there if you'd like to 
 
 6. CHANGE HISTORY
 =================
+
+1.4
++ Added embed full screen option for a 4:3 full screen experience.
+
+1.3.1
++ Added a check to see if a controller is connected and notify the user if that's the case, before the game is launched.
 
 1.3
 + Added a text box to enter what server address to connect to. 
