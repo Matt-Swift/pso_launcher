@@ -29,8 +29,8 @@
     <Setting Name="Windowed" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="PixelPerfectRez" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+    <Setting Name="ResizeMode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">PixelPerfect</Value>
     </Setting>
     <Setting Name="CustomRez" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

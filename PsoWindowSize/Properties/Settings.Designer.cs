@@ -133,13 +133,13 @@ namespace PsoWindowSize.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool PixelPerfectRez {
+        [global::System.Configuration.DefaultSettingValueAttribute("PixelPerfect")]
+        public string ResizeMode {
             get {
-                return ((bool)(this["PixelPerfectRez"]));
+                return ((string)(this["ResizeMode"]));
             }
             set {
-                this["PixelPerfectRez"] = value;
+                this["ResizeMode"] = value;
             }
         }
         

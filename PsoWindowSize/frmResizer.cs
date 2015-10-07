@@ -266,6 +266,13 @@ namespace PsoWindowSize
                 WinAPI.MoveWindow(processes[0].MainWindowHandle, windowRect.Left, windowRect.Top, ((640 * (cboRatio.SelectedIndex + 1)) + (windowWidth - clientWidth)),
                                                                                                   ((480 * (cboRatio.SelectedIndex + 1)) + (windowHeight - clientHeight)), true);
             }
+            else if (rdoScreenHeight.Checked)
+            {
+                int desiredHeight = Screen.PrimaryScreen.Bounds.Height + (windowHeight - clientHeight);
+                int desiredWidth = ((desiredHeight * 4) / 3) + (windowWidth - clientWidth);
+
+                WinAPI.MoveWindow(processes[0].MainWindowHandle, windowRect.Left, windowRect.Top, desiredWidth, desiredHeight, true);
+            }
             else
             {
                 WinAPI.MoveWindow(processes[0].MainWindowHandle, windowRect.Left, windowRect.Top, ((int)txtW.Value + (windowWidth - clientWidth)),
@@ -309,9 +316,19 @@ namespace PsoWindowSize
                 rdoOffline.Checked = true;
             }
 
-            if (!rdoPerfect.Checked)
+            switch (Properties.Settings.Default.ResizeMode)
             {
-                rdoCustom.Checked = true;
+                case "PixelPerfect":
+                    rdoPerfect.Checked = true;
+                    break;
+                case "ScreenHeight":
+                    rdoScreenHeight.Checked = true;
+                    break;
+                case "Custom":
+                    rdoCustom.Checked = true;
+                    break;
+                default:
+                    break;
             }
 
             UpdateRatio();
@@ -419,6 +436,19 @@ namespace PsoWindowSize
             {
                 fraCustom.Enabled = true;
                 cboRatio.Enabled = false;
+                Properties.Settings.Default.ResizeMode = "Custom";
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void rdoScreenHeight_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoScreenHeight.Checked)
+            {
+                cboRatio.Enabled = false;
+                fraCustom.Enabled = false;
+                Properties.Settings.Default.ResizeMode = "ScreenHeight";
+                Properties.Settings.Default.Save();
             }
         }
 
@@ -428,6 +458,8 @@ namespace PsoWindowSize
             {
                 cboRatio.Enabled = true;
                 fraCustom.Enabled = false;
+                Properties.Settings.Default.ResizeMode = "PixelPerfect";
+                Properties.Settings.Default.Save();
             }
         }
 
@@ -473,7 +505,7 @@ namespace PsoWindowSize
 
         private void cmdScreenshot_Click(object sender, EventArgs e)
         {
-//            Process[] processes = Process.GetProcessesByName("PSO");
+            //            Process[] processes = Process.GetProcessesByName("PSO");
 
             string psoBasePath = exePath.Substring(0, exePath.LastIndexOf('\\'));
 
@@ -748,6 +780,11 @@ namespace PsoWindowSize
                     desiredWidth = (int)((640 * (cboRatio.SelectedIndex + 1)) + (windowWidth - clientWidth));
                     desiredHeight = (int)((480 * (cboRatio.SelectedIndex + 1)) + (windowHeight - clientHeight));
                 }
+                else if (rdoScreenHeight.Checked)
+                {
+                    desiredHeight = Screen.PrimaryScreen.Bounds.Height + (windowHeight - clientHeight);
+                    desiredWidth = ((desiredHeight * 4) / 3) + (windowWidth - clientWidth);
+                }
                 else
                 {
                     desiredWidth = (int)((int)txtW.Value + (windowWidth - clientWidth));
@@ -774,6 +811,11 @@ namespace PsoWindowSize
                     {
                         wWidth *= (cboRatio.SelectedIndex + 1);
                         wHeight *= (cboRatio.SelectedIndex + 1);
+                    }
+                    else if (rdoScreenHeight.Checked)
+                    {
+                        wHeight = Screen.PrimaryScreen.Bounds.Height;
+                        wWidth = (wHeight * 4) / 3;
                     }
                     else
                     {
@@ -839,7 +881,7 @@ namespace PsoWindowSize
 
         private void frmResizer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (psoForm!=null && psoProc != null)
+            if (psoForm != null && psoProc != null)
             {
                 if (!psoProc.HasExited)
                 {
@@ -945,5 +987,6 @@ namespace PsoWindowSize
         {
             Properties.Settings.Default.Save();
         }
+
     }
 }
