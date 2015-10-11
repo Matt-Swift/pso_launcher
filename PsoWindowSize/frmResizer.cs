@@ -824,6 +824,7 @@ namespace PsoWindowSize
                     }
 
                     psoForm = new frmPSO();
+                    psoForm.TopMost = true;
                     psoForm.WindowState = FormWindowState.Normal;
                     psoForm.FormBorderStyle = FormBorderStyle.None;
                     psoForm.pnlPSO.Width = wWidth;

@@ -1,7 +1,7 @@
 PSO WINDOW ASPECT RATIO CORRECT & LAUCHER
 =========================================
 
-Version 1.4
+Version 1.4.2
 Author: Tulio Adriano
 
 
@@ -149,6 +149,12 @@ I'm a member of the dcemulation forum, and you can PM me there if you'd like to 
 
 6. CHANGE HISTORY
 =================
+
+1.4.2
+= Small update to try to enforce PSO full screen to go over the taskbar on Windows 7.
+
+1.4.1
+- Removed Xinput 4.1 in favor to 3.1 since Windows 7 apparently doesn't have support to it.
 
 1.4
 + Added embed full screen option for a 4:3 full screen experience.
