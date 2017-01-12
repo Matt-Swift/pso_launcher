@@ -39,6 +39,7 @@ using System.Threading;
 //using System.Threading.Tasks;
 using System.Windows.Forms;
 using Yggdrasill;
+using SharpDX.DirectInput;
 
 namespace PsoWindowSize
 {
@@ -641,9 +642,15 @@ namespace PsoWindowSize
             XInputState controller = new XInputState();
             if (XInput.XInputGetState(0, ref controller).Equals(ERROR_DEVICE_NOT_CONNECTED))
             {
-                if (MessageBox.Show(this, "There are no controllers connected. Do you wish to start anyway?", "No controller found", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.No))
+                DirectInput dinput = new DirectInput();
+                IList<DeviceInstance> joysticks = dinput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AllDevices);
+
+                if (joysticks.Count == 0)
                 {
-                    return;
+                    if (MessageBox.Show(this, "There are no controllers connected. Do you wish to start anyway?", "No controller found", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.No))
+                    {
+                        return;
+                    }
                 }
             }
 

@@ -150,6 +150,9 @@ I'm a member of the dcemulation forum, and you can PM me there if you'd like to 
 6. CHANGE HISTORY
 =================
 
+1.4.3
+= Updated the launcher to check for DirectInput devices if no XInput devices are found, when checking for connected controllers.
+
 1.4.2
 = Small update to try to enforce PSO full screen to go over the taskbar on Windows 7.
 
