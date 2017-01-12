@@ -1,7 +1,7 @@
 PSO WINDOW ASPECT RATIO CORRECT & LAUCHER
 =========================================
 
-Version 1.4.2
+Version 1.4.3
 Author: Tulio Adriano
 
 
