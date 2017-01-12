@@ -644,12 +644,16 @@ namespace PsoWindowSize
             {
                 DirectInput dinput = new DirectInput();
                 IList<DeviceInstance> joysticks = dinput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AllDevices);
-
                 if (joysticks.Count == 0)
                 {
-                    if (MessageBox.Show(this, "There are no controllers connected. Do you wish to start anyway?", "No controller found", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.No))
+                    joysticks = dinput.GetDevices(DeviceType.Joystick, DeviceEnumerationFlags.AllDevices);
+
+                    if (joysticks.Count == 0)
                     {
-                        return;
+                        if (MessageBox.Show(this, "There are no controllers connected. Do you wish to start anyway?", "No controller found", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.No))
+                        {
+                            return;
+                        }
                     }
                 }
             }
