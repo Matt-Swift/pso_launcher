@@ -2,6 +2,8 @@
 
 PsoLauncher is created by TulioAdriano. The initial release is at https://dcemulation.org/phpBB/viewtopic.php?t=103692
 
+It is licensed under the GNU General Public License 3, please see LICENSE.md for details.
+
 ### What is this repository for? ###
 
 * Quick summary:
