@@ -21,7 +21,7 @@ This was coded with Visual Studio 2013, therefore it is recommended to open this
 Nothing specific is needed.
 
 * Dependencies:
-Mithos.dll by Lawrence Sebald. 
+Mithos.dll by Lawrence Sebald aka BlueCrab. 
 
 ### Contribution guidelines ###
 
