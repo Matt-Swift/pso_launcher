@@ -133,17 +133,19 @@ namespace Yggdrasill
         private bool PatchGServer(IMAGE_SECTION_HEADER sec, byte[] data, string serverName = "ragol.org")
         {
             int y, bytesWritten;
-            const string origServ = "pso20.sonic.isao.net";
-            const string origServ2 = "sg207634.sonicteam.com";
-            const string origServ3 = "pso-mp01.sonic.isao.net";
-            const string origServ4 = "gsproduc.ath.cx";
-            const string origServ5 = "sylverant.net";
+            const string origServ = "pso20.sonic.isao.net"; // SEGA
+            const string origServ2 = "sg207634.sonicteam.com"; // SEGA
+            const string origServ3 = "pso-mp01.sonic.isao.net"; // SEGA
+            const string origServ4 = "gsproduc.ath.cx"; // Old SCHTServ
+            const string origServ5 = "sylverant.net"; // Sylverant
+            const string origServ6 = "psobb.dyndns.org"; // Current SCHTServ
             string serv = serverName;
             byte[] opBytes = Encoding.ASCII.GetBytes(origServ);
             byte[] opBytes2 = Encoding.ASCII.GetBytes(origServ2);
             byte[] opBytes3 = Encoding.ASCII.GetBytes(origServ3);
             byte[] opBytes4 = Encoding.ASCII.GetBytes(origServ4);
             byte[] opBytes5 = Encoding.ASCII.GetBytes(origServ5);
+            byte[] opBytes6 = Encoding.ASCII.GetBytes(origServ6);
             byte[] pBytes = Encoding.ASCII.GetBytes(serv);
             bool rv = false;
 
@@ -176,6 +178,12 @@ namespace Yggdrasill
                 else if (memEqual(data, opBytes5, origServ5.Length, y, 0))
                 {
                     memset(data, 0, origServ5.Length, y);
+                    memcpy(data, pBytes, serv.Length, y, 0);
+                    rv = true;
+                }
+                else if (memEqual(data, opBytes6, origServ6.Length, y, 0))
+                {
+                    memset(data, 0, origServ6.Length, y);
                     memcpy(data, pBytes, serv.Length, y, 0);
                     rv = true;
                 }
