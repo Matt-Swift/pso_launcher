@@ -130,18 +130,20 @@ namespace Yggdrasill
 
         #region PSO Patching Methods
 
-        private bool PatchGServer(IMAGE_SECTION_HEADER sec, byte[] data, string serverName = "sylverant.net")
+        private bool PatchGServer(IMAGE_SECTION_HEADER sec, byte[] data, string serverName = "ragol.org")
         {
             int y, bytesWritten;
             const string origServ = "pso20.sonic.isao.net";
             const string origServ2 = "sg207634.sonicteam.com";
             const string origServ3 = "pso-mp01.sonic.isao.net";
             const string origServ4 = "gsproduc.ath.cx";
+            const string origServ5 = "sylverant.net";
             string serv = serverName;
             byte[] opBytes = Encoding.ASCII.GetBytes(origServ);
             byte[] opBytes2 = Encoding.ASCII.GetBytes(origServ2);
             byte[] opBytes3 = Encoding.ASCII.GetBytes(origServ3);
             byte[] opBytes4 = Encoding.ASCII.GetBytes(origServ4);
+            byte[] opBytes5 = Encoding.ASCII.GetBytes(origServ5);
             byte[] pBytes = Encoding.ASCII.GetBytes(serv);
             bool rv = false;
 
@@ -171,6 +173,12 @@ namespace Yggdrasill
                     memcpy(data, pBytes, serv.Length, y, 0);
                     rv = true;
                 }
+                else if (memEqual(data, opBytes5, origServ5.Length, y, 0))
+                {
+                    memset(data, 0, origServ5.Length, y);
+                    memcpy(data, pBytes, serv.Length, y, 0);
+                    rv = true;
+                }
             }
 
             if (rv && !WriteProcessMemory(0x00400000 + sec.virtAddr, sec.virtSz, data, out bytesWritten))
@@ -179,7 +187,7 @@ namespace Yggdrasill
             return rv;
         }
 
-        public bool PatchPSO(bool v1, bool cuss, bool music, bool mapfix, string serverName = "sylverant.net") //Adding serverName variable to allow connecting a different server
+        public bool PatchPSO(bool v1, bool cuss, bool music, bool mapfix, string serverName = "ragol.org") //Adding serverName variable to allow connecting a different server
         {
             PEHeader hdr = new PEHeader(this);
             long start = DateTime.Now.Ticks;
