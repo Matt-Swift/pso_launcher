@@ -217,7 +217,7 @@ namespace PsoWindowSize.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("sylverant.net")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ragol.org")]
         public string ServerName {
             get {
                 return ((string)(this["ServerName"]));
