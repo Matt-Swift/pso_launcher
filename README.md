@@ -1,6 +1,6 @@
 # README #
 
-This README documents whatever steps are necessary to get your application up and running.
+PsoLauncher is created by TulioAdriano. The initial release is at https://dcemulation.org/phpBB/viewtopic.php?t=103692
 
 ### What is this repository for? ###
 
@@ -26,7 +26,7 @@ Mithos.dll by Lawrence Sebald.
 * Writing tests
 * Code review
 * Other guidelines:
-For any kind of contribution, contact me. I can be found at the message board of http://dcemulation.org/
+For any kind of contribution, contact TulioAdriano. They can be found at the message board of http://dcemulation.org/
 
 ### Who do I talk to? ###
 
